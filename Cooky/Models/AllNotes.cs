@@ -26,15 +26,8 @@ internal class AllNotes
     private static IEnumerable<Note> NotesFrom(string path) => 
         Directory
             .EnumerateFiles(path, "*.notes.txt")
-            .Select(Note)
+            .Select(Note.Load)
             .OrderBy(x => x.Date);
-
-    private static Note Note(string filename) => new()
-    {
-        Filename = filename,
-        Text = File.ReadAllText(filename),
-        Date = File.GetCreationTime(filename)
-    };
 
     public ICommand OpenNote { get; } = new AsyncRelayCommand<Note>(Open);
 
