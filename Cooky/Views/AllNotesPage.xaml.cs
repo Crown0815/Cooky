@@ -1,36 +1,29 @@
+using Cooky.Models;
+
 namespace Cooky.Views;
 
 public partial class AllNotesPage
 {
+    private AllNotes AllNotes => (AllNotes)BindingContext;
+    
     public AllNotesPage()
     {
         InitializeComponent();
-        
-        BindingContext = new Models.AllNotes();
+        BindingContext = new AllNotes();
     }
     
-    protected override void OnAppearing()
+    protected override void OnAppearing() => AllNotes.LoadNotes();
+
+    private void notesCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ((Models.AllNotes)BindingContext).LoadNotes();
+        if (e.CurrentSelection is [Note note, ..]) NavigateTo(note);
     }
 
-    private async void Add_Clicked(object sender, EventArgs e)
+    private void NavigateTo(Note note)
     {
-        await Shell.Current.GoToAsync(nameof(NotePage));
+        AllNotes.OpenNote.Execute(note);
+        ClearSelection();
     }
 
-    private async void notesCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (e.CurrentSelection.Count != 0)
-        {
-            // Get the note model
-            var note = (Models.Note)e.CurrentSelection[0];
-
-            // Should navigate to "NotePage?ItemId=path\on\device\XYZ.notes.txt"
-            await Shell.Current.GoToAsync($"{nameof(NotePage)}?{nameof(NotePage.ItemId)}={note.Filename}");
-
-            // Unselect the UI
-            NotesCollection.SelectedItem = null;
-        }
-    }
+    private void ClearSelection() => NotesCollection.SelectedItem = null;
 }

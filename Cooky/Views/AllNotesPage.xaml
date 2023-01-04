@@ -6,7 +6,7 @@
              x:Class="Cooky.Views.AllNotesPage" x:DataType="models:AllNotes">
     <!-- Add an item to the toolbar -->
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="Add_Clicked" IconImageSource="{FontImage Glyph='+', Size=22}" Order="Primary" />
+        <ToolbarItem Command="{Binding AddNote}" Text="Add" IconImageSource="{FontImage Glyph='+', Size=22}" Order="Primary" />
     </ContentPage.ToolbarItems>
 
     <!-- Display notes in a list -->
