@@ -31,8 +31,8 @@ internal class AllNotes
 
     private static Note Note(string filename) => new()
     {
-        Filename = filename, 
-        Text = File.ReadAllText(filename), 
+        Filename = filename,
+        Text = File.ReadAllText(filename),
         Date = File.GetCreationTime(filename)
     };
 
