@@ -9,10 +9,10 @@ public class RecipePage
         Filename = filename;
         Load();
     }
+    
+    public RecipeLabels Labels { get; } = new();
 
     public string Filename { get; }
-    public string Placeholder => "Enter your recipe";
-    public string TitlePlaceholder => "Title";
 
     public string Text
     {
@@ -21,11 +21,9 @@ public class RecipePage
     }
 
     public DateTime Date { get; set; }
-    
-    public string SaveLabel => "Save";
 
-    public string DeleteLabel => "Delete";
     public string Title { get; set; } = "";
+
 
     public static RecipePage New()
     {
