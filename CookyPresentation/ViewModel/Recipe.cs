@@ -13,6 +13,7 @@ public class Recipe
 
     public string Filename { get; }
     public string Placeholder => "Enter your recipe";
+    public string TitlePlaceholder => "Title";
     public string Text { get; set; } = "";
     public DateTime Date { get; set; }
     
@@ -21,7 +22,7 @@ public class Recipe
     
     public string DeleteLabel => "Delete";
     public ICommand DeleteCommand { get; } = new AsyncRelayCommand<Recipe>(Delete!);
-    public string Title => Text.Split(Environment.NewLine).First();
+    public string Title { get; set; } = "";
 
     public static Recipe New()
     {
