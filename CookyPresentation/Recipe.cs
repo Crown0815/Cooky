@@ -1,9 +1,9 @@
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Cooky.Models;
+namespace CookyPresentation;
 
-internal class Recipe
+public class Recipe
 {
     private Recipe(string filename)
     {
@@ -13,19 +13,19 @@ internal class Recipe
 
     public string Filename { get; }
     public string Placeholder => "Enter your recipe";
-    public string Text { get; set; }
+    public string Text { get; set; } = "";
     public DateTime Date { get; set; }
     
     public string SaveLabel => "Save";
-    public ICommand SaveCommand { get; } = new AsyncRelayCommand<Recipe>(Save);
+    public ICommand SaveCommand { get; } = new AsyncRelayCommand<Recipe>(Save!);
     
     public string DeleteLabel => "Delete";
-    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<Recipe>(Delete);
+    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<Recipe>(Delete!);
     public string Title => Text.Split(Environment.NewLine).First();
 
     public static Recipe New()
     {
-        var appDataPath = FileSystem.AppDataDirectory;
+        var appDataPath = Application.AppDataDirectory;
         var randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
         var filename = Path.Combine(appDataPath, randomFileName);
         
@@ -38,7 +38,7 @@ internal class Recipe
         await GoBackAsync();
     }
     
-    private static Task GoBackAsync() => Shell.Current.GoToAsync("..");
+    private static Task GoBackAsync() => Application.GoBack();
 
     private static Task Delete(Recipe recipe)
     {

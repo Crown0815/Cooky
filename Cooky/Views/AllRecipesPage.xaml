@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="using:Cooky.Models"
+             xmlns:presenter="clr-namespace:CookyPresentation;assembly=CookyPresentation"
              x:Class="Cooky.Views.AllRecipesPage" x:DataType="models:AllRecipes">
     <!-- Add an item to the toolbar -->
     <ContentPage.ToolbarItems>
@@ -23,7 +24,7 @@
 
         <!-- Define the appearance of each item in the list -->
         <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:Recipe">
+            <DataTemplate x:DataType="presenter:Recipe">
                 <StackLayout>
                     <Label Text="{Binding Title}" FontSize="22"/>
                     <Label Text="{Binding Date}" FontSize="14" TextColor="Silver"/>

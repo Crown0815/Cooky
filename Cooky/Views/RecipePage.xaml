@@ -2,8 +2,8 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="using:Cooky.Models"
-             x:Class="Cooky.Views.RecipePage" x:DataType="models:Recipe">
+             xmlns:cookyPresentation="clr-namespace:CookyPresentation;assembly=CookyPresentation"
+             x:Class="Cooky.Views.RecipePage" x:DataType="cookyPresentation:Recipe">
     <VerticalStackLayout Spacing="10" Margin="5">
         <Editor
             Placeholder="{Binding Placeholder}"

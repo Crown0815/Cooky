@@ -73,4 +73,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CookyPresentation\CookyPresentation.csproj" />
+    </ItemGroup>
+
 </Project>
