@@ -5,6 +5,8 @@ namespace CookyPresentation.ViewModel;
 
 public class Recipe
 {
+    private string _text = "";
+
     private Recipe(string filename)
     {
         Filename = filename;
@@ -14,7 +16,13 @@ public class Recipe
     public string Filename { get; }
     public string Placeholder => "Enter your recipe";
     public string TitlePlaceholder => "Title";
-    public string Text { get; set; } = "";
+
+    public string Text
+    {
+        get => _text;
+        set => _text = value.Trim();
+    }
+
     public DateTime Date { get; set; }
     
     public string SaveLabel => "Save";
@@ -35,7 +43,13 @@ public class Recipe
 
     private static async Task Save(Recipe recipe)
     {
-        await File.WriteAllTextAsync(recipe.Filename, recipe.Text);
+        var content = $"""
+                    # {recipe.Title}
+
+                    {recipe.Text}
+                    """;
+        
+        await File.WriteAllTextAsync(recipe.Filename, content);
         await GoBackAsync();
     }
     
@@ -60,6 +74,17 @@ public class Recipe
         if (!File.Exists(Filename)) return;
         
         Date = File.GetCreationTime(Filename);
-        Text = File.ReadAllText(Filename);
+        var allText = File.ReadAllText(Filename);
+        if (allText.StartsWith("# "))
+        {
+            allText = allText[2..];
+            Title = allText.Split(Environment.NewLine).First();
+            if (Title is not "")
+                allText = allText.Replace(Title, "");
+            allText = allText.Trim();
+        }
+
+        Text = allText;
+
     }
 }
