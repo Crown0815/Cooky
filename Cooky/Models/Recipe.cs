@@ -3,26 +3,27 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Cooky.Models;
 
-internal class Note
+internal class Recipe
 {
-    private Note(string filename)
+    private Recipe(string filename)
     {
         Filename = filename;
         Load();
     }
 
     public string Filename { get; }
-    public string Placeholder => "Enter your note";
+    public string Placeholder => "Enter your recipe";
     public string Text { get; set; }
     public DateTime Date { get; set; }
     
     public string SaveLabel => "Save";
-    public ICommand SaveCommand { get; } = new AsyncRelayCommand<Note>(Save);
+    public ICommand SaveCommand { get; } = new AsyncRelayCommand<Recipe>(Save);
     
     public string DeleteLabel => "Delete";
-    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<Note>(Delete);
+    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<Recipe>(Delete);
+    public string Title => Text.Split(Environment.NewLine).First();
 
-    public static Note New()
+    public static Recipe New()
     {
         var appDataPath = FileSystem.AppDataDirectory;
         var randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
@@ -31,17 +32,17 @@ internal class Note
         return Load(filename);
     }
 
-    private static async Task Save(Note note)
+    private static async Task Save(Recipe recipe)
     {
-        await File.WriteAllTextAsync(note.Filename, note.Text);
+        await File.WriteAllTextAsync(recipe.Filename, recipe.Text);
         await GoBackAsync();
     }
     
     private static Task GoBackAsync() => Shell.Current.GoToAsync("..");
 
-    private static Task Delete(Note note)
+    private static Task Delete(Recipe recipe)
     {
-        Delete(note.Filename);
+        Delete(recipe.Filename);
         return GoBackAsync();
     }
 
@@ -51,7 +52,7 @@ internal class Note
             File.Delete(fileName);
     }
 
-    public static Note Load(string fileName) => new(fileName);
+    public static Recipe Load(string fileName) => new(fileName);
 
     private void Load()
     {

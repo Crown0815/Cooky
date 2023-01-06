@@ -53,17 +53,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiXaml Update="Views\NotePage.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
-      <MauiXaml Update="Views\AboutPage.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Views\NotePage.xaml.cs">
-        <DependentUpon>NotePage.xaml</DependentUpon>
+      <Compile Update="Views\RecipePage.xaml.cs">
+        <DependentUpon>RecipePage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
       <Compile Update="Views\AboutPage.xaml.cs">

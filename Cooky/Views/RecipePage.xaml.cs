@@ -3,16 +3,16 @@ using Cooky.Models;
 namespace Cooky.Views;
 
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
-public partial class NotePage
+public partial class RecipePage
 {
     public string ItemId
     {
-        set => BindingContext = Note.Load(value);
+        set => BindingContext = Recipe.Load(value);
     }
 
-    public NotePage()
+    public RecipePage()
     {
         InitializeComponent();
-        BindingContext = Note.New();
+        BindingContext = Recipe.New();
     }
 }

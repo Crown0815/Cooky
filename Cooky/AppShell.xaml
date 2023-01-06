@@ -9,13 +9,13 @@
     <TabBar>
         <ShellContent
             Title="Notes"
-            ContentTemplate="{DataTemplate views:AllNotesPage}"
-            Route="MainPage"
-            Icon="icon_notes"/>
+            Icon="icon_notes.png"
+            ContentTemplate="{DataTemplate views:AllRecipesPage}"
+            Route="MainPage"/>
         <ShellContent
             Title="About"
-            ContentTemplate="{DataTemplate views:AboutPage}"
-            Icon="icon_about" />
+            Icon="icon_about.png"
+            ContentTemplate="{DataTemplate views:AboutPage}"/>
     </TabBar>
 
 </Shell>
