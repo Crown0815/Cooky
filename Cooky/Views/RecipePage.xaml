@@ -14,15 +14,15 @@
             HeightRequest="100" />
 
         <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
-            <Button 
+            <Button
                 Text="{Binding SaveLabel}"
-                Command="{Binding SaveCommand}"
+                Command="{Binding RecipeCommands.SaveCommand}"
                 CommandParameter="{Binding}"/>
 
-            <Button 
+            <Button
                 Grid.Column="1"
                 Text ="{Binding DeleteLabel}"
-                Command="{Binding DeleteCommand}"
+                Command="{Binding RecipeCommands.DeleteCommand}"
                 CommandParameter="{Binding}"/>
         </Grid>
     </VerticalStackLayout>

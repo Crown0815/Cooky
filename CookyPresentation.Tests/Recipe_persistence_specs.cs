@@ -10,7 +10,7 @@ public class Recipe_persistence_specs
 
     private static RecipePage SavedAndLoaded(RecipePage recipe)
     {
-        recipe.SaveCommand.Execute(recipe);
+        recipe.RecipeCommands.SaveCommand.Execute(recipe);
         return RecipePage.Load(recipe.Filename);
     }
 

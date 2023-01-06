@@ -1,7 +1,4 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-
-namespace CookyPresentation.ViewModel;
+﻿namespace CookyPresentation.ViewModel;
 
 public class RecipePage
 {
@@ -11,6 +8,7 @@ public class RecipePage
     {
         Filename = filename;
         Load();
+        RecipeCommands = new RecipeCommands();
     }
 
     public string Filename { get; }
@@ -26,11 +24,11 @@ public class RecipePage
     public DateTime Date { get; set; }
     
     public string SaveLabel => "Save";
-    public ICommand SaveCommand { get; } = new AsyncRelayCommand<RecipePage>(Save!);
-    
+
     public string DeleteLabel => "Delete";
-    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<RecipePage>(Delete!);
     public string Title { get; set; } = "";
+
+    public RecipeCommands RecipeCommands { get; }
 
     public static RecipePage New()
     {
@@ -41,32 +39,6 @@ public class RecipePage
         return Load(filename);
     }
 
-    private static async Task Save(RecipePage recipe)
-    {
-        var content = $"""
-                    # {recipe.Title}
-
-                    {recipe.Text}
-                    """;
-        
-        await File.WriteAllTextAsync(recipe.Filename, content);
-        await GoBackAsync();
-    }
-    
-    private static Task GoBackAsync() => Application.GoBack();
-
-    private static Task Delete(RecipePage recipe)
-    {
-        Delete(recipe.Filename);
-        return GoBackAsync();
-    }
-
-    private static void Delete(string fileName)
-    {
-        if (File.Exists(fileName))
-            File.Delete(fileName);
-    }
-
     public static RecipePage Load(string fileName) => new(fileName);
 
     private void Load()
@@ -74,7 +46,12 @@ public class RecipePage
         if (!File.Exists(Filename)) return;
         
         Date = File.GetCreationTime(Filename);
-        var allText = File.ReadAllText(Filename);
+        Parse(File.ReadAllText(Filename));
+    }
+
+    private void Parse(string raw)
+    {
+        var allText = raw;
         if (allText.StartsWith("# "))
         {
             allText = allText[2..];
@@ -85,6 +62,11 @@ public class RecipePage
         }
 
         Text = allText;
-
     }
+
+    public string Serialized() => $"""
+                                # {Title}
+
+                                {Text}
+                                """;
 }
