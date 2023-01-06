@@ -6,13 +6,12 @@ namespace CookyPresentation.Tests;
 
 public class Recipe_persistence_specs
 {
-    private static readonly Recipe Recipe = Recipe.New();
+    private static readonly RecipePage Recipe = RecipePage.New();
 
-    private static Recipe SavedAndLoaded(Recipe recipe)
+    private static RecipePage SavedAndLoaded(RecipePage recipe)
     {
         recipe.SaveCommand.Execute(recipe);
-        var rLoaded = Recipe.Load(recipe.Filename);
-        return rLoaded;
+        return RecipePage.Load(recipe.Filename);
     }
 
     [Fact]

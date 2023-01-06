@@ -1,4 +1,4 @@
-using CookyPresentation.ViewModel;
+using RecipePageModel = CookyPresentation.ViewModel.RecipePage;
 
 namespace Cooky.Views;
 
@@ -7,12 +7,12 @@ public partial class RecipePage
 {
     public string ItemId
     {
-        set => BindingContext = Recipe.Load(value);
+        set => BindingContext = RecipePageModel.Load(value);
     }
 
     public RecipePage()
     {
         InitializeComponent();
-        BindingContext = Recipe.New();
+        BindingContext = RecipePageModel.New();
     }
 }

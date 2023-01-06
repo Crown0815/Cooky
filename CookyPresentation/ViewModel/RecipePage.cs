@@ -3,11 +3,11 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CookyPresentation.ViewModel;
 
-public class Recipe
+public class RecipePage
 {
     private string _text = "";
 
-    private Recipe(string filename)
+    private RecipePage(string filename)
     {
         Filename = filename;
         Load();
@@ -26,13 +26,13 @@ public class Recipe
     public DateTime Date { get; set; }
     
     public string SaveLabel => "Save";
-    public ICommand SaveCommand { get; } = new AsyncRelayCommand<Recipe>(Save!);
+    public ICommand SaveCommand { get; } = new AsyncRelayCommand<RecipePage>(Save!);
     
     public string DeleteLabel => "Delete";
-    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<Recipe>(Delete!);
+    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<RecipePage>(Delete!);
     public string Title { get; set; } = "";
 
-    public static Recipe New()
+    public static RecipePage New()
     {
         var appDataPath = Application.AppDataDirectory;
         var randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
@@ -41,7 +41,7 @@ public class Recipe
         return Load(filename);
     }
 
-    private static async Task Save(Recipe recipe)
+    private static async Task Save(RecipePage recipe)
     {
         var content = $"""
                     # {recipe.Title}
@@ -55,7 +55,7 @@ public class Recipe
     
     private static Task GoBackAsync() => Application.GoBack();
 
-    private static Task Delete(Recipe recipe)
+    private static Task Delete(RecipePage recipe)
     {
         Delete(recipe.Filename);
         return GoBackAsync();
@@ -67,7 +67,7 @@ public class Recipe
             File.Delete(fileName);
     }
 
-    public static Recipe Load(string fileName) => new(fileName);
+    public static RecipePage Load(string fileName) => new(fileName);
 
     private void Load()
     {

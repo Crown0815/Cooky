@@ -1,18 +1,17 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
-using Cooky.Views;
-using CookyPresentation.ViewModel;
+using RecipePage = CookyPresentation.ViewModel.RecipePage;
 
 namespace Cooky.Models;
 
 internal class AllRecipes
 {
     private static readonly string RecipesPath = FileSystem.AppDataDirectory;
-    public ObservableCollection<Recipe> Recipes { get; } = new();
+    public ObservableCollection<RecipePage> Recipes { get; } = new();
     public ICommand NewRecipe { get; } = new AsyncRelayCommand(CreateNewRecipe);
 
-    private static Task CreateNewRecipe() => Shell.Current.GoToAsync(nameof(RecipePage));
+    private static Task CreateNewRecipe() => Shell.Current.GoToAsync(nameof(Views.RecipePage));
 
     public AllRecipes() => LoadRecipes();
 
@@ -24,14 +23,14 @@ internal class AllRecipes
             Recipes.Add(note);
     }
 
-    private static IEnumerable<Recipe> RecipesFrom(string path) => 
+    private static IEnumerable<RecipePage> RecipesFrom(string path) => 
         Directory
             .EnumerateFiles(path, "*.notes.txt")
-            .Select(Recipe.Load)
+            .Select(RecipePage.Load)
             .OrderBy(x => x.Date);
 
-    public ICommand OpenCommand { get; } = new AsyncRelayCommand<Recipe>(Open);
+    public ICommand OpenCommand { get; } = new AsyncRelayCommand<RecipePage>(Open);
 
-    private static Task Open(Recipe recipe) => 
-        Shell.Current.GoToAsync($"{nameof(RecipePage)}?{nameof(RecipePage.ItemId)}={recipe.Filename}");
+    private static Task Open(RecipePage recipe) => 
+        Shell.Current.GoToAsync($"{nameof(Views.RecipePage)}?{nameof(Views.RecipePage.ItemId)}={recipe.Filename}");
 }
