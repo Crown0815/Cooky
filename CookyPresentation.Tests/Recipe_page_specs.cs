@@ -1,24 +1,12 @@
 using CookyPresentation.ViewModel;
 using FluentAssertions;
 using Xunit;
+using static CookyPresentation.Tests.Example;
 
 namespace CookyPresentation.Tests;
 
 public class Recipe_page_specs
 {
-    private const string GivenTitle = "new title";
-
-    private const string GivenText = """
-                                     Some text with a
-                                     linebreak
-                                     """;
-
-    private const string GivenTextWithSurroundingBlankLines = $"""
-
-                                     {GivenText}
-
-                                     """;
-
     [Fact]
     public void A_recipe_when_its_title_is_changed_has_the_given_title()
     {
@@ -44,29 +32,5 @@ public class Recipe_page_specs
         r.Text = GivenTextWithSurroundingBlankLines;
 
         r.Text.Should().Be(GivenText);
-    }
-    
-    [Fact]
-    public void A_recipe_when_saved_and_loaded_preserves_its_given_title()
-    {
-        var r = Recipe.New();
-        r.Title = GivenTitle;
-        
-        r.SaveCommand.Execute(r);
-        var rLoaded = Recipe.Load(r.Filename);
-
-        rLoaded.Title.Should().Be(GivenTitle);
-    }
-    
-    [Fact]
-    public void A_recipe_when_saved_and_loaded_preserves_its_given_text()
-    {
-        var r = Recipe.New();
-        r.Text = GivenText;
-        
-        r.SaveCommand.Execute(r);
-        var rLoaded = Recipe.Load(r.Filename);
-
-        rLoaded.Text.Should().Be(GivenText);
     }
 }
