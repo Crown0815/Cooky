@@ -1,4 +1,4 @@
-using CookyPresentation;
+using CookyPresentation.ViewModel;
 
 namespace Cooky.Views;
 

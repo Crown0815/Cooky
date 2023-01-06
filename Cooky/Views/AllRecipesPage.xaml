@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="using:Cooky.Models"
-             xmlns:presenter="clr-namespace:CookyPresentation;assembly=CookyPresentation"
+             xmlns:presenter="clr-namespace:CookyPresentation.ViewModel;assembly=CookyPresentation"
              x:Class="Cooky.Views.AllRecipesPage" x:DataType="models:AllRecipes">
     <!-- Add an item to the toolbar -->
     <ContentPage.ToolbarItems>

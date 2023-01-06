@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace CookyPresentation;
+namespace CookyPresentation.ViewModel;
 
 public class Recipe
 {
