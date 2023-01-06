@@ -3,10 +3,10 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CookyPresentation.ViewModel;
 
-public class RecipeCommands
+public static class RecipeCommands
 {
-    public ICommand SaveCommand { get; } = new AsyncRelayCommand<RecipePage>(Save!);
-    public ICommand DeleteCommand { get; } = new AsyncRelayCommand<RecipePage>(Delete!);
+    public static ICommand SaveCommand { get; } = new AsyncRelayCommand<RecipePage>(Save!);
+    public static ICommand DeleteCommand { get; } = new AsyncRelayCommand<RecipePage>(Delete!);
 
     private static async Task Save(RecipePage recipe)
     {

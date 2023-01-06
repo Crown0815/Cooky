@@ -8,7 +8,6 @@ public class RecipePage
     {
         Filename = filename;
         Load();
-        RecipeCommands = new RecipeCommands();
     }
 
     public string Filename { get; }
@@ -27,8 +26,6 @@ public class RecipePage
 
     public string DeleteLabel => "Delete";
     public string Title { get; set; } = "";
-
-    public RecipeCommands RecipeCommands { get; }
 
     public static RecipePage New()
     {

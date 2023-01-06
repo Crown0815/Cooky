@@ -2,8 +2,8 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cookyPresentation="clr-namespace:CookyPresentation.ViewModel;assembly=CookyPresentation"
-             x:Class="Cooky.Views.RecipePage" x:DataType="cookyPresentation:RecipePage">
+             xmlns:presentation="clr-namespace:CookyPresentation.ViewModel;assembly=CookyPresentation"
+             x:Class="Cooky.Views.RecipePage" x:DataType="presentation:RecipePage">
     <VerticalStackLayout Spacing="10" Margin="5">
         <Entry
             Placeholder="{Binding TitlePlaceholder}"
@@ -16,13 +16,13 @@
         <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
             <Button
                 Text="{Binding SaveLabel}"
-                Command="{Binding RecipeCommands.SaveCommand}"
+                Command="{x:Static presentation:RecipeCommands.SaveCommand}"
                 CommandParameter="{Binding}"/>
 
             <Button
                 Grid.Column="1"
                 Text ="{Binding DeleteLabel}"
-                Command="{Binding RecipeCommands.DeleteCommand}"
+                Command="{x:Static presentation:RecipeCommands.DeleteCommand}"
                 CommandParameter="{Binding}"/>
         </Grid>
     </VerticalStackLayout>
