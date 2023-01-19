@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using static CookyPresentation.Application;
 
 namespace CookyPresentation.ViewModel;
 
@@ -10,21 +11,13 @@ public static class RecipeCommands
 
     private static async Task Save(RecipePage recipe)
     {
-        await File.WriteAllTextAsync(recipe.Filename, recipe.Serialized());
-        await GoBackAsync();
+        await recipe.Save();
+        await GoBack();
     }
-
-    private static Task GoBackAsync() => Application.GoBack();
 
     private static Task Delete(RecipePage recipe)
     {
-        Delete(recipe.Filename);
-        return GoBackAsync();
-    }
-
-    private static void Delete(string fileName)
-    {
-        if (File.Exists(fileName))
-            File.Delete(fileName);
+        recipe.Delete();
+        return GoBack();
     }
 }

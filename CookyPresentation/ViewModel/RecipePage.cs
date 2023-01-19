@@ -2,67 +2,37 @@
 
 public class RecipePage
 {
-    private string _instructions = "";
     private readonly Recipe _recipe;
 
-    private RecipePage(string filename)
+    private RecipePage(Recipe recipe)
     {
-        Filename = filename;
-        Load();
+        _recipe = recipe;
     }
+
+    public static RecipePage New() => Load(RecipePersistence.NewId());
+
+    public static RecipePage Load(string fileName) => new(RecipePersistence.Load(fileName));
+    
     
     public RecipeLabels Labels { get; } = new();
 
-    public string Filename { get; }
+    public string Filename => _recipe.Id;
 
     public string Instructions
     {
-        get => _instructions;
-        set => _instructions = value.Trim();
+        get => _recipe.Instructions;
+        set => _recipe.Instructions = value.Trim();
     }
 
-    public DateTime Date { get; set; }
+    public DateTime Date => _recipe.Date;
 
-    public string Title { get; set; } = "";
-
-
-    public static RecipePage New()
+    public string Title
     {
-        var appDataPath = Application.AppDataDirectory;
-        var randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
-        var filename = Path.Combine(appDataPath, randomFileName);
-        
-        return Load(filename);
+        get => _recipe.Title;
+        set => _recipe.Title = value;
     }
 
-    public static RecipePage Load(string fileName) => new(fileName);
+    public Task Save() => RecipePersistence.Save(_recipe);
 
-    private void Load()
-    {
-        if (!File.Exists(Filename)) return;
-        
-        Date = File.GetCreationTime(Filename);
-        Parse(File.ReadAllText(Filename));
-    }
-
-    private void Parse(string raw)
-    {
-        var allText = raw;
-        if (allText.StartsWith("# "))
-        {
-            allText = allText[2..];
-            Title = allText.Split(Environment.NewLine).First();
-            if (Title is not "")
-                allText = allText.Replace(Title, "");
-            allText = allText.Trim();
-        }
-
-        Instructions = allText;
-    }
-
-    public string Serialized() => $"""
-                                # {Title}
-
-                                {Instructions}
-                                """;
+    public void Delete() => RecipePersistence.Delete(_recipe);
 }
