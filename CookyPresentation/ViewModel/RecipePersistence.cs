@@ -4,11 +4,12 @@ internal static class RecipePersistence
 {
     public static Recipe Load(string id)
     {
-        if (!File.Exists(id)) 
+        var fileName = FileNameFrom(id);
+        if (!File.Exists(fileName)) 
             throw new RecipeNotFoundException(id);
 
-        var date = File.GetCreationTime(id);
-        var (title, instructions) = Parse(File.ReadAllText(id));
+        var date = File.GetCreationTime(fileName);
+        var (title, instructions) = Parse(File.ReadAllText(fileName));
 
         return new Recipe
         {
@@ -42,21 +43,24 @@ internal static class RecipePersistence
                                 """;
 
     public static Task Save(Recipe recipe) => 
-        File.WriteAllTextAsync(recipe.Id, Serialized(recipe));
+        File.WriteAllTextAsync(FileNameFrom(recipe.Id), Serialized(recipe));
 
     public static void Delete(Recipe recipe)
     {
-        var fileName = recipe.Id;
+        var fileName = FileNameFrom(recipe.Id);
         if (File.Exists(fileName))
             File.Delete(fileName);
     }
 
-    public static Recipe New() => new() { Id = NewId() };
+    public static Recipe New() => new() { Id = Path.GetRandomFileName() };
 
-    private static string NewId()
-    {
+    private static string FileNameFrom(string id) {
         var appDataPath = Application.AppDataDirectory;
-        var randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
-        return Path.Combine(appDataPath, randomFileName);
+        var filename = id;
+        if (!filename.StartsWith(appDataPath))
+            filename = Path.Combine(appDataPath, id);
+        if (!filename.EndsWith(".notes.txt"))
+            filename += ".notes.txt";
+        return filename;
     }
 }

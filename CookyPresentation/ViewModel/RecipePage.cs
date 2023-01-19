@@ -11,9 +11,8 @@ public class RecipePage : IPersistable
 
     public static RecipePage New() => new(RecipePersistence.New());
 
-    public static RecipePage Load(string fileName) => new(RecipePersistence.Load(fileName));
-    
-    
+    public static RecipePage Load(string id) => new(RecipePersistence.Load(id));
+
     public RecipeLabels Labels { get; } = new();
 
     public string Filename => _recipe.Id;
