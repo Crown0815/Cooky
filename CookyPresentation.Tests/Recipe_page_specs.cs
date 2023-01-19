@@ -17,16 +17,16 @@ public class Recipe_page_specs
     }
     
     [Fact]
-    public void A_recipe_when_its_text_is_changed_has_the_given_text()
+    public void A_recipe_when_its_instructions_are_changed_has_the_given_instructions()
     {
-        Recipe.Text = GivenText;
-        Recipe.Text.Should().Be(GivenText);
+        Recipe.Instructions = Instructions;
+        Recipe.Instructions.Should().Be(Instructions);
     }
     
     [Fact]
-    public void A_recipe_when_its_text_is_changed_to_text_with_surrounding_blank_lines_has_the_trimmed_text()
+    public void A_recipe_when_its_instructions_are_changed_trims_trailing_blank_lines()
     {
-        Recipe.Text = GivenTextWithSurroundingBlankLines;
-        Recipe.Text.Should().Be(GivenText);
+        Recipe.Instructions = GivenTextWithSurroundingBlankLines;
+        Recipe.Instructions.Should().Be(Instructions);
     }
 }

@@ -22,9 +22,9 @@ public class Recipe_persistence_specs
     }
 
     [Fact]
-    public void A_recipe_when_saved_and_loaded_preserves_its_given_text()
+    public void A_recipe_when_saved_and_loaded_preserves_its_given_instructions()
     {
-        Recipe.Text = Example.GivenText;
-        SavedAndLoaded(Recipe).Text.Should().Be(Example.GivenText);
+        Recipe.Instructions = Example.Instructions;
+        SavedAndLoaded(Recipe).Instructions.Should().Be(Example.Instructions);
     }
 }

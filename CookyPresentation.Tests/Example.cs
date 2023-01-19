@@ -4,14 +4,14 @@ internal static class Example
 {
     public const string GivenTitle = "new title";
 
-    public const string GivenText = """
+    public const string Instructions = """
                                      Some text with a
                                      linebreak
                                      """;
 
     public const string GivenTextWithSurroundingBlankLines = $"""
 
-                                     {GivenText}
+                                     {Instructions}
 
                                      """;
 }

@@ -2,7 +2,8 @@
 
 public class RecipePage
 {
-    private string _text = "";
+    private string _instructions = "";
+    private readonly Recipe _recipe;
 
     private RecipePage(string filename)
     {
@@ -14,10 +15,10 @@ public class RecipePage
 
     public string Filename { get; }
 
-    public string Text
+    public string Instructions
     {
-        get => _text;
-        set => _text = value.Trim();
+        get => _instructions;
+        set => _instructions = value.Trim();
     }
 
     public DateTime Date { get; set; }
@@ -56,12 +57,12 @@ public class RecipePage
             allText = allText.Trim();
         }
 
-        Text = allText;
+        Instructions = allText;
     }
 
     public string Serialized() => $"""
                                 # {Title}
 
-                                {Text}
+                                {Instructions}
                                 """;
 }

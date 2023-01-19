@@ -10,7 +10,7 @@
             Text="{Binding Title}"/>
         <Editor
             Placeholder="{Binding Labels.Placeholder}"
-            Text="{Binding Text}"
+            Text="{Binding Instructions}"
             HeightRequest="100" />
 
         <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
