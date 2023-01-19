@@ -1,6 +1,6 @@
 ﻿namespace CookyPresentation.ViewModel;
 
-public class RecipePage
+public class RecipePage : IPersistable
 {
     private readonly Recipe _recipe;
 
