@@ -5,7 +5,7 @@ internal static class RecipePersistence
     public static Recipe Load(string id)
     {
         if (!File.Exists(id)) 
-            return new Recipe { Id = id };
+            throw new RecipeNotFoundException(id);
 
         var date = File.GetCreationTime(id);
         var (title, instructions) = Parse(File.ReadAllText(id));
@@ -51,7 +51,9 @@ internal static class RecipePersistence
             File.Delete(fileName);
     }
 
-    public static string NewId()
+    public static Recipe New() => new() { Id = NewId() };
+
+    private static string NewId()
     {
         var appDataPath = Application.AppDataDirectory;
         var randomFileName = $"{Path.GetRandomFileName()}.notes.txt";

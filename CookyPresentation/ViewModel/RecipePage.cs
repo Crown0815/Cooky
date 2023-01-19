@@ -9,7 +9,7 @@ public class RecipePage
         _recipe = recipe;
     }
 
-    public static RecipePage New() => Load(RecipePersistence.NewId());
+    public static RecipePage New() => new(RecipePersistence.New());
 
     public static RecipePage Load(string fileName) => new(RecipePersistence.Load(fileName));
     
