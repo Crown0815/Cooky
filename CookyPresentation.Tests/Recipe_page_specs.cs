@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using CookyPresentation.ViewModel;
 using FluentAssertions;
 using Xunit;
@@ -28,5 +29,64 @@ public class Recipe_page_specs
     {
         Recipe.Instructions = GivenTextWithSurroundingBlankLines;
         Recipe.Instructions.Should().Be(Instructions);
+    }
+
+    public class A_recipe_when_its_ingredients_text_changes
+    {
+        [Theory]
+        [InlineData(nameof(RecipePage.IngredientsText))]
+        [InlineData(nameof(RecipePage.Ingredients))]
+        public void raises_property_changed_for(string property)
+        {
+            using var monitoredSubject = Recipe.Monitor();
+            Recipe.IngredientsText = "changed ingredients";
+
+            monitoredSubject.Should().Raise(nameof(INotifyPropertyChanged.PropertyChanged))
+                .WithArgs<PropertyChangedEventArgs>(x => x.PropertyName == property);
+        }
+    }
+
+    public class A_recipe_parses_ingredients_when_the_ingredients_text_changes_by
+    {
+        private const string IngredientsText = """
+                                   Carrot
+                                   Meat
+                                   """;
+
+        [Fact]
+        public void treating_each_line_as_an_ingredient()
+        {
+            Recipe.IngredientsText = IngredientsText;
+            
+            Recipe.IngredientsText.Should().Be(IngredientsText);
+            Recipe.Ingredients.Should().BeEquivalentTo("Carrot", "Meat");
+        }
+
+        [Fact]
+        public void ignoring_blank_lines()
+        {
+            Recipe.IngredientsText = """
+
+                                   Carrot
+
+                                   Meat
+
+                                   """;
+            
+            Recipe.IngredientsText.Should().Be(IngredientsText);
+            Recipe.Ingredients.Should().BeEquivalentTo("Carrot", "Meat");
+        }
+
+        [Fact]
+        public void ignoring_trailing_whitespace_in_each_ingredient_line()
+        {
+            Recipe.IngredientsText = """
+                                      Carrot   
+                                      Meat   
+                                   """;
+            
+            Recipe.IngredientsText.Should().Be(IngredientsText);
+            Recipe.Ingredients.Should().BeEquivalentTo("Carrot", "Meat");
+        }
     }
 }

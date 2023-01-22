@@ -1,6 +1,9 @@
-﻿namespace CookyPresentation.ViewModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using static System.StringSplitOptions;
 
-public class RecipePage : IPersistable
+namespace CookyPresentation.ViewModel;
+
+public class RecipePage : ObservableObject, IPersistable
 {
     private readonly Recipe _recipe;
 
@@ -29,6 +32,19 @@ public class RecipePage : IPersistable
     {
         get => _recipe.Title;
         set => _recipe.Title = value;
+    }
+
+    public IReadOnlyCollection<string> Ingredients { get; private set; } = new List<string>();
+
+    public string IngredientsText
+    {
+        get => string.Join(Environment.NewLine, Ingredients);
+        set
+        {
+            Ingredients = value.Split(Environment.NewLine, TrimEntries | RemoveEmptyEntries).ToList();
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(Ingredients));
+        }
     }
 
     public Task Save() => RecipePersistence.Save(_recipe);
