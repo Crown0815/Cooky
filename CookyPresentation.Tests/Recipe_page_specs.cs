@@ -53,40 +53,44 @@ public class Recipe_page_specs
                                    Meat
                                    """;
 
+        private static IEnumerable<string> IngredientsFrom(params string[] ingredients)
+        {
+            return ingredients;
+        }
+
         [Fact]
         public void treating_each_line_as_an_ingredient()
         {
-            Recipe.IngredientsText = IngredientsText;
-            
-            Recipe.IngredientsText.Should().Be(IngredientsText);
-            Recipe.Ingredients.Should().BeEquivalentTo("Carrot", "Meat");
+            IngredientsShouldBeParsedFrom(IngredientsText);
         }
 
         [Fact]
         public void ignoring_blank_lines()
         {
-            Recipe.IngredientsText = """
+            IngredientsShouldBeParsedFrom("""
 
                                    Carrot
 
                                    Meat
 
-                                   """;
-            
-            Recipe.IngredientsText.Should().Be(IngredientsText);
-            Recipe.Ingredients.Should().BeEquivalentTo("Carrot", "Meat");
+                                   """);
         }
 
         [Fact]
         public void ignoring_trailing_whitespace_in_each_ingredient_line()
         {
-            Recipe.IngredientsText = """
+            IngredientsShouldBeParsedFrom("""
                                       Carrot   
                                       Meat   
-                                   """;
-            
+                                   """);
+        }
+
+        private static void IngredientsShouldBeParsedFrom(string text)
+        {
+            Recipe.IngredientsText = text;
+
             Recipe.IngredientsText.Should().Be(IngredientsText);
-            Recipe.Ingredients.Should().BeEquivalentTo("Carrot", "Meat");
+            Recipe.Ingredients.Should().BeEquivalentTo(IngredientsFrom("Carrot", "Meat"));
         }
     }
 }
