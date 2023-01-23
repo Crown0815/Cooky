@@ -19,4 +19,12 @@ internal static class Example
                                    Carrot
                                    Meat
                                    """;
+    
+    public const string IngredientsWithBlankLinesAndTrailingWhitespace = """
+
+                                      Carrot
+
+                                   Meat   
+
+                                   """;
 }

@@ -36,6 +36,13 @@ public class Recipe_persistence_specs
     }
 
     [Fact]
+    public void A_recipe_when_saved_and_loaded_preserves_trims_given_ingredients_text()
+    {
+        _recipe.Ingredients.Text = Example.IngredientsWithBlankLinesAndTrailingWhitespace;
+        SavedAndLoaded(_recipe).Ingredients.Text.Should().Be(Example.TrimmedIngredientsText);
+    }
+
+    [Fact]
     public async Task A_recipe_when_saved_and_deleted_cannot_be_loaded()
     {
         await _recipe.Save();

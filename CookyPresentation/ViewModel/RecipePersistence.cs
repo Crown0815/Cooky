@@ -1,4 +1,6 @@
 using System.Text.RegularExpressions;
+using static System.Environment;
+using static System.StringSplitOptions;
 
 namespace CookyPresentation.ViewModel;
 
@@ -41,12 +43,15 @@ internal static class RecipePersistence
 
                                 ## Ingredients
 
-                                {recipe.Ingredients}
+                                {Trimmed(recipe.Ingredients)}
 
                                 ## Instructions
 
                                 {recipe.Instructions}
                                 """;
+
+    private static string Trimmed(string text) => 
+        string.Join(NewLine, text.Split(NewLine, TrimEntries|RemoveEmptyEntries));
 
     public static Task Save(Recipe recipe) => 
         File.WriteAllTextAsync(FileNameFrom(recipe.Id), Serialized(recipe));
