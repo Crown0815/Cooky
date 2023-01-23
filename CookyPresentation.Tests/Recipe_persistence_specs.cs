@@ -10,18 +10,9 @@ public class Recipe_persistence_specs
 
     private static RecipePage SavedAndLoaded(RecipePage recipe)
     {
-        Save(recipe);
-        return Load(recipe);
-    }
-
-    private static void Save(RecipePage recipe) => 
         recipe.Save().GetAwaiter().GetResult();
-
-    private static RecipePage Load(RecipePage recipe) => 
-        RecipePage.Load(recipe.Filename);
-
-    private static void Delete(RecipePage recipe) =>
-        recipe.Delete();
+        return RecipePage.Load(recipe.Filename);
+    }
 
     [Fact]
     public void A_recipe_when_saved_and_loaded_preserves_its_given_title()
@@ -38,10 +29,10 @@ public class Recipe_persistence_specs
     }
 
     [Fact]
-    public void A_recipe_when_saved_and_deleted_cannot_be_loaded()
+    public async Task A_recipe_when_saved_and_deleted_cannot_be_loaded()
     {
-        Save(_recipe);
-        Delete(_recipe);
+        await _recipe.Save();
+        _recipe.Delete();
         
         FluentActions.Invoking(() => RecipePage.Load(_recipe.Filename))
             .Should().Throw<RecipeNotFoundException>()
