@@ -9,7 +9,11 @@
             Placeholder="{Binding Labels.TitlePlaceholder}"
             Text="{Binding Title}"/>
         <Editor
-            Placeholder="{Binding Labels.Placeholder}"
+            Placeholder="{Binding Labels.IngredientsPlaceholder}"
+            Text="{Binding Ingredients.Text}"
+            HeightRequest="100" />
+        <Editor
+            Placeholder="{Binding Labels.RecipePlaceholder}"
             Text="{Binding Instructions}"
             HeightRequest="100" />
 

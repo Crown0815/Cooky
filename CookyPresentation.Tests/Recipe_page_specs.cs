@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using CookyPresentation.ViewModel;
 using FluentAssertions;
 using Xunit;
@@ -31,8 +30,10 @@ public class Recipe_page_specs
         Recipe.Instructions.Should().Be(Instructions); 
     }
 
-    public class A_recipe_when_the_ingredients_text_changes
+    public class A_recipe_s_ingredients_when_ingredient_text
     {
+        private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
+        
         private const string TrimmedIngredientsText = """
                                    Carrot
                                    Meat
@@ -62,33 +63,41 @@ public class Recipe_page_specs
         [InlineData("removing trailing whitespace from", IngredientsWithTrailingWhitespace)]
         public void parses_ingredients(string by, string text)
         {
-            Recipe.IngredientsText = text;
+            _ingredients.Text = text;
 
-            Recipe.Ingredients.Should().BeEquivalentTo(
+            _ingredients.List.Should().BeEquivalentTo(
                 IngredientsFrom("Carrot", "Meat"), 
                 "the recipe should be {0} {1}", by, nameof(text));
+        }
+
+        [Fact]
+        public void changes_raises_property_changed_for_ingredients_list()
+        {
+            using var monitoredSubject = _ingredients.Monitor();
+            _ingredients.Text = "changed ingredients";
+
+            monitoredSubject.Should().RaisePropertyChangeFor(x => x.List);
         }
 
         [Theory]
         [InlineData(TrimmedIngredientsText)]
         [InlineData(IngredientsWithBlankLines)]
         [InlineData(IngredientsWithTrailingWhitespace)]
-        public void trims_whitespace_and_empty_lines_from(string text)
+        public void changes_are_completed_trims_whitespace_and_empty_lines_from(string text)
         {
-            Recipe.IngredientsText = text;
-            Recipe.IngredientsText.Should().Be(TrimmedIngredientsText);;
+            _ingredients.Text = text;
+            _ingredients.Complete();
+            _ingredients.Text.Should().Be(TrimmedIngredientsText);
         }
 
-        [Theory]
-        [InlineData(nameof(RecipePage.IngredientsText))]
-        [InlineData(nameof(RecipePage.Ingredients))]
-        public void raises_property_changed_for(string property)
+        [Fact]
+        public void changes_are_completed_raises_property_changed_for_ingredients_text()
         {
-            using var monitoredSubject = Recipe.Monitor();
-            Recipe.IngredientsText = "changed ingredients";
+            using var monitoredSubject = _ingredients.Monitor();
+            _ingredients.Text = "changed ingredients";
+            _ingredients.Complete();
 
-            monitoredSubject.Should().Raise(nameof(INotifyPropertyChanged.PropertyChanged))
-                .WithArgs<PropertyChangedEventArgs>(x => x.PropertyName == property);
+            monitoredSubject.Should().RaisePropertyChangeFor(x => x.Text);
         }
     }
 }

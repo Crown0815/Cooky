@@ -34,20 +34,33 @@ public class RecipePage : ObservableObject, IPersistable
         set => _recipe.Title = value;
     }
 
-    public IReadOnlyCollection<string> Ingredients { get; private set; } = new List<string>();
-
-    public string IngredientsText
-    {
-        get => string.Join(Environment.NewLine, Ingredients);
-        set
-        {
-            Ingredients = value.Split(Environment.NewLine, TrimEntries | RemoveEmptyEntries).ToList();
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(Ingredients));
-        }
-    }
+    public IngredientsEditor Ingredients { get; } = new();
 
     public Task Save() => RecipePersistence.Save(_recipe);
 
     public void Delete() => RecipePersistence.Delete(_recipe);
+}
+
+public class IngredientsEditor : ObservableObject
+{
+    private string _text = "";
+
+    public string Text
+    {
+        get => _text;
+        set
+        {
+            _text = value;
+            List = value.Split(Environment.NewLine, TrimEntries | RemoveEmptyEntries).ToList();
+            OnPropertyChanged(nameof(List));
+        }
+    }
+
+    public IReadOnlyCollection<string> List { get; private set; } = Array.Empty<string>();
+
+    public void Complete()
+    {
+        _text = string.Join(Environment.NewLine, List);
+        OnPropertyChanged(nameof(Text));
+    }
 }
