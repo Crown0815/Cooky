@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using static System.StringSplitOptions;
 
 namespace CookyPresentation.ViewModel;
 
@@ -10,6 +9,7 @@ public class RecipePage : ObservableObject, IPersistable
     private RecipePage(Recipe recipe)
     {
         _recipe = recipe;
+        Ingredients = new IngredientsEditor(_recipe);
     }
 
     public static RecipePage New() => new(RecipePersistence.New());
@@ -34,7 +34,7 @@ public class RecipePage : ObservableObject, IPersistable
         set => _recipe.Title = value;
     }
 
-    public IngredientsEditor Ingredients { get; } = new();
+    public IngredientsEditor Ingredients { get; }
 
     public Task Save() => RecipePersistence.Save(_recipe);
 

@@ -4,14 +4,19 @@ namespace CookyPresentation.ViewModel;
 
 public class IngredientsEditor : ObservableObject
 {
-    private string _text = "";
+    private readonly Recipe _recipe;
+
+    internal IngredientsEditor(Recipe recipe)
+    {
+        _recipe = recipe;
+    }
 
     public string Text
     {
-        get => _text;
+        get => _recipe.Ingredients;
         set
         {
-            _text = value;
+            _recipe.Ingredients = value;
             List = value.Split(Environment.NewLine, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList();
             OnPropertyChanged(nameof(List));
         }
@@ -21,7 +26,7 @@ public class IngredientsEditor : ObservableObject
 
     public void Complete()
     {
-        _text = string.Join(Environment.NewLine, List);
+        _recipe.Ingredients = string.Join(Environment.NewLine, List);
         OnPropertyChanged(nameof(Text));
     }
 }

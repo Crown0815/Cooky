@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace CookyPresentation.ViewModel;
 
 internal static class RecipePersistence
@@ -9,35 +11,39 @@ internal static class RecipePersistence
             throw new RecipeNotFoundException(id);
 
         var date = File.GetCreationTime(fileName);
-        var (title, instructions) = Parse(File.ReadAllText(fileName));
+        var (title, ingredients, instructions) = Parse(File.ReadAllText(fileName));
 
         return new Recipe
         {
             Id = id,
             Date = date,
+            Ingredients = ingredients,
             Instructions = instructions,
             Title = title,
         };
     }
     
-    private static (string, string) Parse(string raw)
+    private static (string, string, string) Parse(string raw)
     {
-        var title = "";
-        var allText = raw;
-        if (allText.StartsWith("# "))
-        {
-            allText = allText[2..];
-            title = allText.Split(Environment.NewLine).First();
-            if (title is not "")
-                allText = allText.Replace(title, "");
-            allText = allText.Trim();
-        }
-        
-        return (title, allText);
+        var pattern = new Regex(
+            @"^(?:# (?<Title>.*))\n*(?:## Ingredients\n*(?<Ingredients>.*))\n*(?:## Instructions\n*(?<Instructions>.*))", 
+            RegexOptions.Singleline);
+
+        var match = pattern.Match(raw);
+
+        return (match.Groups["Title"].Value.Trim(),
+            match.Groups["Ingredients"].Value.Trim(),
+            match.Groups["Instructions"].Value.Trim());
     }
 
     private static string Serialized(Recipe recipe) => $"""
                                 # {recipe.Title}
+
+                                ## Ingredients
+
+                                {recipe.Ingredients}
+
+                                ## Instructions
 
                                 {recipe.Instructions}
                                 """;

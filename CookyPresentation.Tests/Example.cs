@@ -14,4 +14,9 @@ internal static class Example
                                      {Instructions}
 
                                      """;
+
+    public const string TrimmedIngredientsText = """
+                                   Carrot
+                                   Meat
+                                   """;
 }
