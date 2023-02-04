@@ -2,6 +2,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CookyPresentation.ViewModel;
 
+
+public record Ingredient(string Name, string Preparation);
+
 public class IngredientsEditor : ObservableObject
 {
     private readonly Recipe _recipe;
@@ -17,16 +20,19 @@ public class IngredientsEditor : ObservableObject
         set
         {
             _recipe.Ingredients = value;
-            List = value.Split(Environment.NewLine, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList();
+            List = LinesFrom(value).Select(x => new Ingredient(x, "")).ToList();
             OnPropertyChanged(nameof(List));
         }
     }
 
-    public IReadOnlyCollection<string> List { get; private set; } = Array.Empty<string>();
+    private static IEnumerable<string> LinesFrom(string value) => 
+        value.Split(Environment.NewLine, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    public IReadOnlyCollection<Ingredient> List { get; private set; } = Array.Empty<Ingredient>();
 
     public void Complete()
     {
-        _recipe.Ingredients = string.Join(Environment.NewLine, List);
+        _recipe.Ingredients = string.Join(Environment.NewLine, List.Select(x => x.Name));
         OnPropertyChanged(nameof(Text));
     }
 }

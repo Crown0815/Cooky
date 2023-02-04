@@ -34,9 +34,9 @@ public class Recipe_page_specs
     {
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
 
-        private static IEnumerable<string> IngredientNames(params string[] ingredients)
+        private static IEnumerable<Ingredient> IngredientNames(params string[] ingredients)
         {
-            return ingredients;
+            return ingredients.Select(x => new Ingredient(x, ""));
         }
 
         [Theory]

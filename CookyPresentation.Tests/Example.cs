@@ -27,4 +27,9 @@ internal static class Example
                                     Meat   
 
                                     """;
+
+    public const string IngredientsWithPreparation = """
+                                    Carrot, chopped
+                                    Meat, cut into 1 inch dice
+                                    """;
 }
