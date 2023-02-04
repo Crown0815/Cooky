@@ -34,7 +34,7 @@ public class Recipe_page_specs
     {
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
 
-        private static IEnumerable<string> IngredientsFrom(params string[] ingredients)
+        private static IEnumerable<string> IngredientNames(params string[] ingredients)
         {
             return ingredients;
         }
@@ -42,22 +42,13 @@ public class Recipe_page_specs
         [Theory]
         [InlineData("extracting one ingredient from each line in", TrimmedIngredientsText)]
         [InlineData("ignoring blank lines and trailing whitespace in", IngredientsWithBlankLinesAndTrailingWhitespace)]
-        public void changes_parses_ingredients(string by, string text)
+        public void changes_parses_ingredient_names(string by, string text)
         {
             _ingredients.Text = text;
 
             _ingredients.List.Should().BeEquivalentTo(
-                IngredientsFrom("Carrot", "Meat"), 
+                IngredientNames("Carrot", "Meat"), 
                 "the recipe should be {0} {1}", by, nameof(text));
-        }
-
-        [Fact]
-        public void changes_raises_property_changed_for_ingredients_list()
-        {
-            using var monitoredSubject = _ingredients.Monitor();
-            _ingredients.Text = "changed ingredients";
-
-            monitoredSubject.Should().RaisePropertyChangeFor(x => x.List);
         }
 
         [Theory]
@@ -68,6 +59,15 @@ public class Recipe_page_specs
             _ingredients.Text = text;
             _ingredients.Complete();
             _ingredients.Text.Should().Be(TrimmedIngredientsText);
+        }
+
+        [Fact]
+        public void changes_raises_property_changed_for_ingredients_list()
+        {
+            using var monitoredSubject = _ingredients.Monitor();
+            _ingredients.Text = "changed ingredients";
+
+            monitoredSubject.Should().RaisePropertyChangeFor(x => x.List);
         }
 
         [Fact]
