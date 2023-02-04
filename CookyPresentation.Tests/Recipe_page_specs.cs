@@ -33,24 +33,6 @@ public class Recipe_page_specs
     public class A_recipe_s_ingredients_when_ingredient_text
     {
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
-        
-        private const string TrimmedIngredientsText = """
-                                   Carrot
-                                   Meat
-                                   """;
-
-        private const string IngredientsWithBlankLines = """
-
-                                   Carrot
-
-                                   Meat
-
-                                   """;
-
-        private const string IngredientsWithTrailingWhitespace = """
-                                      Carrot   
-                                      Meat   
-                                   """;
 
         private static IEnumerable<string> IngredientsFrom(params string[] ingredients)
         {
@@ -59,8 +41,7 @@ public class Recipe_page_specs
 
         [Theory]
         [InlineData("extracting one ingredient from each line in", TrimmedIngredientsText)]
-        [InlineData("ignoring blank lines in", IngredientsWithBlankLines)]
-        [InlineData("removing trailing whitespace from", IngredientsWithTrailingWhitespace)]
+        [InlineData("ignoring blank lines and trailing whitespace in", IngredientsWithBlankLinesAndTrailingWhitespace)]
         public void parses_ingredients(string by, string text)
         {
             _ingredients.Text = text;
@@ -81,8 +62,7 @@ public class Recipe_page_specs
 
         [Theory]
         [InlineData(TrimmedIngredientsText)]
-        [InlineData(IngredientsWithBlankLines)]
-        [InlineData(IngredientsWithTrailingWhitespace)]
+        [InlineData(IngredientsWithBlankLinesAndTrailingWhitespace)]
         public void changes_are_completed_trims_whitespace_and_empty_lines_from(string text)
         {
             _ingredients.Text = text;
