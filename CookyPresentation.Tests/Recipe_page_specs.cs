@@ -42,7 +42,7 @@ public class Recipe_page_specs
         [Theory]
         [InlineData("extracting one ingredient from each line in", TrimmedIngredientsText)]
         [InlineData("ignoring blank lines and trailing whitespace in", IngredientsWithBlankLinesAndTrailingWhitespace)]
-        public void parses_ingredients(string by, string text)
+        public void changes_parses_ingredients(string by, string text)
         {
             _ingredients.Text = text;
 
