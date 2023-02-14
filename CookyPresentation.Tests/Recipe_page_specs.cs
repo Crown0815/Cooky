@@ -34,21 +34,15 @@ public class Recipe_page_specs
     {
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
 
-        private static IEnumerable<Ingredient> IngredientNames(params string[] ingredients)
-        {
-            return ingredients.Select(x => new Ingredient(x, ""));
-        }
-
         [Theory]
-        [InlineData("extracting one ingredient from each line in", TrimmedIngredientsText)]
-        [InlineData("ignoring blank lines and trailing whitespace in", IngredientsWithBlankLinesAndTrailingWhitespace)]
-        public void changes_parses_ingredient_names(string by, string text)
+        [InlineData(TrimmedIngredientsText)]
+        [InlineData(IngredientsWithBlankLinesAndTrailingWhitespace)]
+        public void changes_parses_ingredient_names_from(string text)
         {
             _ingredients.Text = text;
 
-            _ingredients.List.Should().BeEquivalentTo(
-                IngredientNames("Carrot", "Meat"), 
-                "the recipe should be {0} {1}", by, nameof(text));
+            _ingredients.List.Select(x => x.Name).Should().BeEquivalentTo(
+                "Carrot", "Meat");
         }
 
         [Theory]
