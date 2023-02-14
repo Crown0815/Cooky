@@ -1,7 +1,11 @@
+using static System.Environment;
+
 namespace CookyPresentation.Tests;
 
 internal static class Example
 {
+    private static object[] Case(params object[] arguments) => arguments;
+    
     public const string GivenTitle = "new title";
 
     public const string Instructions = """
@@ -15,18 +19,20 @@ internal static class Example
 
                                     """;
 
-    public const string TrimmedIngredientsText = """
-                                    Carrot
-                                    Meat
-                                    """;
+    private static readonly string[] Ingredients = { "Carrot", "Meat" };
+    private static readonly string BlankLine = NewLine + NewLine;
     
-    public const string IngredientsWithBlankLinesAndTrailingWhitespace = """
+    public static readonly string TrimmedIngredientsText = string.Join(NewLine, Ingredients);
+    public static readonly string IngredientsWithBlankLinesAndTrailingWhitespace = 
+        string.Join(BlankLine, Ingredients.Select(WithTrailingWhitespace).Prepend("").Append(""));
 
-                                       Carrot
+    private static string WithTrailingWhitespace(string arg) => $"    {arg}    ";
 
-                                    Meat   
-
-                                    """;
+    public static object[][] IngredientNamesOnly =
+    {
+        Case(TrimmedIngredientsText),
+        Case(IngredientsWithBlankLinesAndTrailingWhitespace),
+    };
 
     public const string IngredientsWithPreparation = """
                                     Carrot, chopped

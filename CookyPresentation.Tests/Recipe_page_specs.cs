@@ -35,8 +35,7 @@ public class Recipe_page_specs
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
 
         [Theory]
-        [InlineData(TrimmedIngredientsText)]
-        [InlineData(IngredientsWithBlankLinesAndTrailingWhitespace)]
+        [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]
         public void changes_parses_ingredient_names_from(string text)
         {
             _ingredients.Text = text;
@@ -69,8 +68,7 @@ public class Recipe_page_specs
         }
 
         [Theory]
-        [InlineData(TrimmedIngredientsText)]
-        [InlineData(IngredientsWithBlankLinesAndTrailingWhitespace)]
+        [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]
         public void changes_are_completed_trims_whitespace_and_empty_lines_from(string text)
         {
             _ingredients.Text = text;
