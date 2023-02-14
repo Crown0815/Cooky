@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 namespace CookyPresentation.ViewModel;
 
 
-public record Ingredient(string Name, string Preparation);
+public record Ingredient(string Name, string Preparation, string Quantity = "");
 
 public class IngredientsEditor : ObservableObject
 {
@@ -28,13 +28,20 @@ public class IngredientsEditor : ObservableObject
 
     private static Ingredient AsIngredient(string line)
     {
+        var unit = "";
+        if (line.Split(" ") is [var x, ..] && x.IsUnit())
+        {
+            unit = x;
+            line = line.Remove(0, unit.Length + 1);
+        }
+        
         if (line.Contains(IngredientPreparationSeparator))
         {
             var pieces = line.Split(IngredientPreparationSeparator);
-            return new Ingredient(pieces[0].Trim(), pieces[1].Trim());
+            return new Ingredient(pieces[0].Trim(), pieces[1].Trim(), unit);
         }
 
-        return new Ingredient(line, "");
+        return new Ingredient(line, "", unit);
     }
 
     private static IEnumerable<string> LinesFrom(string value) => 
@@ -47,4 +54,9 @@ public class IngredientsEditor : ObservableObject
         _recipe.Ingredients = string.Join(Environment.NewLine, List.Select(x => x.Name));
         OnPropertyChanged(nameof(Text));
     }
+}
+
+internal static class IngredientParsingExtensions
+{
+    public static bool IsUnit(this string text) => char.IsDigit(text[0]);
 }

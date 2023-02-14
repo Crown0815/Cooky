@@ -37,4 +37,9 @@ internal static class Example
                                     Carrot  , chopped  
                                       Meat,  cut into 1 inch dice
                                     """;
+    
+    public const string IngredientsWithQuantity = """
+                                    5 Carrots
+                                    500g Meat
+                                    """;
 }
