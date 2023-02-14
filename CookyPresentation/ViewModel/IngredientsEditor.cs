@@ -7,6 +7,7 @@ public record Ingredient(string Name, string Preparation);
 
 public class IngredientsEditor : ObservableObject
 {
+    private const char IngredientPreparationSeparator = ',';
     private readonly Recipe _recipe;
 
     internal IngredientsEditor(Recipe recipe)
@@ -20,9 +21,20 @@ public class IngredientsEditor : ObservableObject
         set
         {
             _recipe.Ingredients = value;
-            List = LinesFrom(value).Select(x => new Ingredient(x, "")).ToList();
+            List = LinesFrom(value).Select(AsIngredient).ToList();
             OnPropertyChanged(nameof(List));
         }
+    }
+
+    private static Ingredient AsIngredient(string line)
+    {
+        if (line.Contains(IngredientPreparationSeparator))
+        {
+            var pieces = line.Split(IngredientPreparationSeparator);
+            return new Ingredient(pieces[0].Trim(), pieces[1].Trim());
+        }
+
+        return new Ingredient(line, "");
     }
 
     private static IEnumerable<string> LinesFrom(string value) => 

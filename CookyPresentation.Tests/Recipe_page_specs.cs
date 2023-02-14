@@ -52,6 +52,18 @@ public class Recipe_page_specs
         }
 
         [Theory]
+        [InlineData(IngredientsWithPreparation)]
+        [InlineData(IngredientsWithPreparationAndTrailingWhitespaces)]
+        public void changes_parses_ingredient_preparation_separated_by_comma(string text)
+        {
+            _ingredients.Text = text;
+
+            _ingredients.List.Should().BeEquivalentTo(new Ingredient[]{
+                    new ("Carrot", "chopped"), 
+                    new ("Meat", "cut into 1 inch dice")});
+        }
+
+        [Theory]
         [InlineData(TrimmedIngredientsText)]
         [InlineData(IngredientsWithBlankLinesAndTrailingWhitespace)]
         public void changes_are_completed_trims_whitespace_and_empty_lines_from(string text)

@@ -32,4 +32,9 @@ internal static class Example
                                     Carrot, chopped
                                     Meat, cut into 1 inch dice
                                     """;
+    
+    public const string IngredientsWithPreparationAndTrailingWhitespaces = """
+                                    Carrot  , chopped  
+                                      Meat,  cut into 1 inch dice
+                                    """;
 }
