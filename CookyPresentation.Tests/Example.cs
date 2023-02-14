@@ -42,4 +42,9 @@ internal static class Example
                                     5 Carrots
                                     500g Meat
                                     """;
+    
+    public const string IngredientsWithQuantityAndPreparation = """
+                                    5 Carrots, chopped  
+                                    500g Meat,  cut into 1 inch dice
+                                    """;
 }
