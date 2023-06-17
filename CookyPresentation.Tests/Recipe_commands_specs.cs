@@ -5,11 +5,11 @@ using static Moq.Times;
 
 namespace CookyPresentation.Tests;
 
-[Collection("Static_command_accessors")]
+[Collection(nameof(Recipe_commands_specs))]
 public class Recipe_commands_specs
 {
-    private readonly Mock<IPersistable> _recipeSpy = new();
-    
+    private readonly Mock<IDocument> _recipeSpy = new();
+
     [Fact]
     public void The_save_command_when_executed_calls_save_on_given_recipe()
     {
@@ -23,30 +23,30 @@ public class Recipe_commands_specs
         RecipeCommands.DeleteCommand.Execute(_recipeSpy.Object);
         _recipeSpy.Verify(x => x.Delete(), Once);
     }
-    
-    [Collection("Static_command_accessors")]
+
+    [Collection(nameof(Recipe_commands_specs))]
     public class The_application_is_brought_back_to_its_previous_page_after_executing_the
     {
         private readonly Mock<IAppWrapper> _appSpy = new();
-        
+
         public The_application_is_brought_back_to_its_previous_page_after_executing_the()
         {
             Application.Initialize(_appSpy.Object);
         }
 
         private void Verify() => _appSpy.Verify(x => x.GoBack(), Once);
-    
+
         [Fact]
         public void save_command()
         {
-            RecipeCommands.SaveCommand.Execute(Mock.Of<IPersistable>());
+            RecipeCommands.SaveCommand.Execute(Mock.Of<IDocument>());
             Verify();
         }
-        
+
         [Fact]
         public void delete_command()
         {
-            RecipeCommands.DeleteCommand.Execute(Mock.Of<IPersistable>());
+            RecipeCommands.DeleteCommand.Execute(Mock.Of<IDocument>());
             Verify();
         }
     }

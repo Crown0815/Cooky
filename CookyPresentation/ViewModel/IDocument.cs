@@ -1,6 +1,6 @@
 namespace CookyPresentation.ViewModel;
 
-public interface IPersistable
+public interface IDocument
 {
     Task Save();
     void Delete();

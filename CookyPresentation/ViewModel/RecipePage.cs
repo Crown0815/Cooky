@@ -2,7 +2,7 @@
 
 namespace CookyPresentation.ViewModel;
 
-public class RecipePage : ObservableObject, IPersistable
+public class RecipePage : ObservableObject, IDocument
 {
     private readonly Recipe _recipe;
 
