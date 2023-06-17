@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using CookyPresentation.Model;
 using static System.Environment;
 using static System.StringSplitOptions;
 
@@ -9,7 +10,7 @@ internal static class RecipePersistence
     public static Recipe Load(string id)
     {
         var fileName = FileNameFrom(id);
-        if (!File.Exists(fileName)) 
+        if (!File.Exists(fileName))
             throw new RecipeNotFoundException(id);
 
         var date = File.GetCreationTime(fileName);
@@ -24,11 +25,11 @@ internal static class RecipePersistence
             Title = title,
         };
     }
-    
+
     private static (string, string, string) Parse(string raw)
     {
         var pattern = new Regex(
-            @"^(?:# (?<Title>.*))\n*(?:## Ingredients\n*(?<Ingredients>.*))\n*(?:## Instructions\n*(?<Instructions>.*))", 
+            @"^(?:# (?<Title>.*))\n*(?:## Ingredients\n*(?<Ingredients>.*))\n*(?:## Instructions\n*(?<Instructions>.*))",
             RegexOptions.Singleline);
 
         var match = pattern.Match(raw);
@@ -50,10 +51,10 @@ internal static class RecipePersistence
                                 {recipe.Instructions}
                                 """;
 
-    private static string Trimmed(string text) => 
+    private static string Trimmed(string text) =>
         string.Join(NewLine, text.Split(NewLine, TrimEntries|RemoveEmptyEntries));
 
-    public static Task Save(Recipe recipe) => 
+    public static Task Save(Recipe recipe) =>
         File.WriteAllTextAsync(FileNameFrom(recipe.Id), Serialized(recipe));
 
     public static void Delete(Recipe recipe)

@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModel;
 
