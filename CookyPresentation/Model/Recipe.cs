@@ -13,7 +13,9 @@ internal class Recipe
     public string Instructions { get; set; } = "";
     public string Ingredients { get; set; } = "";
 
-    public static Ingredient AsIngredient(string line)
+    public IReadOnlyCollection<Ingredient> IngredientsList => LinesFrom(Ingredients).Select(AsIngredient).ToList();
+
+    private static Ingredient AsIngredient(string line)
     {
         var unit = "";
         if (line.Split(" ") is [var x, ..] && x.IsUnit())
@@ -31,7 +33,7 @@ internal class Recipe
         return new Ingredient(line, "", unit);
     }
 
-    public static IEnumerable<string> LinesFrom(string value)
+    private static IEnumerable<string> LinesFrom(string value)
     {
         return value.Split(Environment.NewLine, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
             .ToList();

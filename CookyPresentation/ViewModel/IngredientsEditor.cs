@@ -21,12 +21,11 @@ public class IngredientsEditor : ObservableObject
         set
         {
             _recipe.Ingredients = value;
-            List = Recipe.LinesFrom(value).Select(Recipe.AsIngredient).ToList();
             OnPropertyChanged(nameof(List));
         }
     }
 
-    public IReadOnlyCollection<Ingredient> List { get; private set; } = Array.Empty<Ingredient>();
+    public IReadOnlyCollection<Ingredient> List => _recipe.IngredientsList;
 
     public void Confirm()
     {
