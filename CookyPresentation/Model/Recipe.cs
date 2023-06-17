@@ -33,9 +33,11 @@ internal class Recipe
         return new Ingredient(line, "", unit);
     }
 
-    private static IEnumerable<string> LinesFrom(string value)
+    private static IEnumerable<string> LinesFrom(string text)
     {
-        return value.Split(Environment.NewLine, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-            .ToList();
+        using var reader = new StringReader(text);
+        while (reader.ReadLine() is { } line)
+            if (!string.IsNullOrEmpty(line))
+                yield return line.Trim();
     }
 }
