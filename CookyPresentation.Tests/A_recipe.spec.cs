@@ -7,7 +7,7 @@ namespace CookyPresentation.Tests;
 
 public class A_recipe
 {
-    private static readonly RecipePage Recipe = RecipePage.New();
+    private static readonly RecipeEditor Recipe = RecipeEditor.New();
 
     [Fact]
     public void when_its_title_is_changed_has_the_given_title()

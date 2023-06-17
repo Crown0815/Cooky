@@ -24,7 +24,7 @@
 
         <!-- Define the appearance of each item in the list -->
         <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="presenter:RecipePage">
+            <DataTemplate x:DataType="presenter:RecipeEditor">
                 <StackLayout>
                     <Label Text="{Binding Title}" FontSize="22"/>
                     <Label Text="{Binding Date}" FontSize="14" TextColor="Silver"/>

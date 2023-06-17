@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:presentation="clr-namespace:CookyPresentation.ViewModel;assembly=CookyPresentation"
-             x:Class="Cooky.Views.RecipePage" x:DataType="presentation:RecipePage">
+             x:Class="Cooky.Views.RecipePage" x:DataType="presentation:RecipeEditor">
     <VerticalStackLayout Spacing="10" Margin="5">
         <Entry
             Placeholder="{Binding Labels.TitlePlaceholder}"

@@ -3,19 +3,25 @@ using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModel;
 
-public class RecipePage : ObservableObject, IDocument
+public class RecipeEditor : ObservableObject, IDocument
 {
     private readonly Recipe _recipe;
 
-    private RecipePage(Recipe recipe)
+    private RecipeEditor(Recipe recipe)
     {
         _recipe = recipe;
         Ingredients = new IngredientsEditor(_recipe);
     }
 
-    public static RecipePage New() => new(RecipePersistence.New());
+    public static RecipeEditor New()
+    {
+        return new RecipeEditor(RecipePersistence.New());
+    }
 
-    public static RecipePage Load(string id) => new(RecipePersistence.Load(id));
+    public static RecipeEditor Load(string id)
+    {
+        return new RecipeEditor(RecipePersistence.Load(id));
+    }
 
     public RecipeLabels Labels { get; } = new();
 

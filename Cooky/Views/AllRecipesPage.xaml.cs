@@ -1,5 +1,5 @@
 using Cooky.Models;
-using RecipePageModel = CookyPresentation.ViewModel.RecipePage;
+using CookyPresentation.ViewModel;
 
 namespace Cooky.Views;
 
@@ -17,10 +17,10 @@ public partial class AllRecipesPage
 
     private void SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection is [RecipePageModel recipe, ..]) NavigateTo(recipe);
+        if (e.CurrentSelection is [RecipeEditor recipe, ..]) NavigateTo(recipe);
     }
 
-    private void NavigateTo(RecipePageModel recipe)
+    private void NavigateTo(RecipeEditor recipe)
     {
         AllRecipes.OpenCommand.Execute(recipe);
         ClearSelection();
