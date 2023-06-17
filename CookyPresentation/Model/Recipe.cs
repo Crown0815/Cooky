@@ -4,16 +4,30 @@ namespace CookyPresentation.Model;
 
 internal class Recipe
 {
+    public Recipe(string id, DateTime date, string ingredients)
+    {
+        Id = id;
+        Date = date;
+        _ingredients = ingredients;
+    }
+
+    private string _ingredients;
     private const char IngredientPreparationSeparator = ',';
 
-    public string Id { get; internal init; } = "";
-    public DateTime Date { get; internal init; }
+    public string Id { get; }
+    public DateTime Date { get; }
 
     public string Title { get; set; } = "";
     public string Instructions { get; set; } = "";
-    public string Ingredients { get; set; } = "";
 
-    public IReadOnlyCollection<Ingredient> IngredientsList => LinesFrom(Ingredients).Select(AsIngredient).ToList();
+    public string Ingredients => string.Join(Environment.NewLine, IngredientsList.Select(x => x.Name));
+
+    public void SetIngredients(string value)
+    {
+        _ingredients = value;
+    }
+
+    public IReadOnlyCollection<Ingredient> IngredientsList => LinesFrom(_ingredients).Select(AsIngredient).ToList();
 
     private static Ingredient AsIngredient(string line)
     {

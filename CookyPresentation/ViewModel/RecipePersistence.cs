@@ -16,11 +16,8 @@ internal static class RecipePersistence
         var date = File.GetCreationTime(fileName);
         var (title, ingredients, instructions) = Parse(File.ReadAllText(fileName));
 
-        return new Recipe
+        return new Recipe(id, date, ingredients)
         {
-            Id = id,
-            Date = date,
-            Ingredients = ingredients,
             Instructions = instructions,
             Title = title,
         };
@@ -64,7 +61,10 @@ internal static class RecipePersistence
             File.Delete(fileName);
     }
 
-    public static Recipe New() => new() { Id = Path.GetRandomFileName() };
+    public static Recipe New()
+    {
+        return new Recipe(Path.GetRandomFileName(), DateTime.Now, "");
+    }
 
     private static string FileNameFrom(string id) {
         var appDataPath = Application.AppDataDirectory;

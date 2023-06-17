@@ -20,7 +20,7 @@ public class IngredientsEditor : ObservableObject
         get => _recipe.Ingredients;
         set
         {
-            _recipe.Ingredients = value;
+            _recipe.SetIngredients(value);
             OnPropertyChanged(nameof(List));
         }
     }
@@ -29,7 +29,6 @@ public class IngredientsEditor : ObservableObject
 
     public void Confirm()
     {
-        _recipe.Ingredients = string.Join(Environment.NewLine, List.Select(x => x.Name));
         OnPropertyChanged(nameof(Text));
     }
 }
