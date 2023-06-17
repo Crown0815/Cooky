@@ -34,7 +34,7 @@ public class IngredientsEditor : ObservableObject
             unit = x;
             line = line.Remove(0, unit.Length + 1);
         }
-        
+
         if (line.Contains(IngredientPreparationSeparator))
         {
             var pieces = line.Split(IngredientPreparationSeparator);
@@ -44,12 +44,12 @@ public class IngredientsEditor : ObservableObject
         return new Ingredient(line, "", unit);
     }
 
-    private static IEnumerable<string> LinesFrom(string value) => 
+    private static IEnumerable<string> LinesFrom(string value) =>
         value.Split(Environment.NewLine, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).ToList();
 
     public IReadOnlyCollection<Ingredient> List { get; private set; } = Array.Empty<Ingredient>();
 
-    public void Complete()
+    public void Confirm()
     {
         _recipe.Ingredients = string.Join(Environment.NewLine, List.Select(x => x.Name));
         OnPropertyChanged(nameof(Text));

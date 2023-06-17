@@ -5,38 +5,38 @@ using static CookyPresentation.Tests.Example;
 
 namespace CookyPresentation.Tests;
 
-public class Recipe_page_specs
+public class A_recipe
 {
     private static readonly RecipePage Recipe = RecipePage.New();
 
     [Fact]
-    public void A_recipe_when_its_title_is_changed_has_the_given_title()
+    public void when_its_title_is_changed_has_the_given_title()
     {
         Recipe.Title = GivenTitle;
         Recipe.Title.Should().Be(GivenTitle);
     }
 
     [Fact]
-    public void A_recipe_when_its_instructions_are_changed_has_the_given_instructions()
+    public void when_its_instructions_are_changed_has_the_given_instructions()
     {
         Recipe.Instructions = Instructions;
         Recipe.Instructions.Should().Be(Instructions);
     }
 
     [Fact]
-    public void A_recipe_when_its_instructions_are_changed_trims_trailing_blank_lines()
-    {   
+    public void when_its_instructions_are_changed_trims_trailing_blank_lines()
+    {
         Recipe.Instructions = GivenTextWithSurroundingBlankLines;
-        Recipe.Instructions.Should().Be(Instructions); 
+        Recipe.Instructions.Should().Be(Instructions);
     }
 
-    public class A_recipe_s_ingredients_when_ingredient_text
+    public class when_its_ingredients_are_changed
     {
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
 
         [Theory]
         [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]
-        public void changes_parses_ingredient_names_from(string text)
+        public void parses_ingredient_names_from(string text)
         {
             _ingredients.Text = text;
 
@@ -48,10 +48,10 @@ public class Recipe_page_specs
         [InlineData(IngredientsWithPreparation)]
         [InlineData(IngredientsWithQuantityAndPreparation)]
         [InlineData(IngredientsWithPreparationAndTrailingWhitespaces)]
-        public void changes_parses_ingredient_preparation_separated_by_comma(string text)
+        public void parses_ingredient_preparation_separated_by_comma(string text)
         {
             _ingredients.Text = text;
-            
+
             _ingredients.List.Select(x => x.Preparation)
                 .Should().BeEquivalentTo("chopped", "cut into 1 inch dice");
         }
@@ -59,7 +59,7 @@ public class Recipe_page_specs
         [Theory]
         [InlineData(IngredientsWithQuantity)]
         [InlineData(IngredientsWithQuantityAndPreparation)]
-        public void changes_parses_ingredient_state_separated_by_comma(string text)
+        public void parses_ingredient_state_separated_by_comma(string text)
         {
             _ingredients.Text = text;
 
@@ -69,15 +69,15 @@ public class Recipe_page_specs
 
         [Theory]
         [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]
-        public void changes_are_completed_trims_whitespace_and_empty_lines_from(string text)
+        public void and_confirmed_has_text_with_whitespace_and_empty_lines_trimmed_from(string text)
         {
             _ingredients.Text = text;
-            _ingredients.Complete();
+            _ingredients.Confirm();
             _ingredients.Text.Should().Be(TrimmedIngredientsText);
         }
 
         [Fact]
-        public void changes_raises_property_changed_for_ingredients_list()
+        public void raises_property_changed_for_ingredients_list()
         {
             using var monitoredSubject = _ingredients.Monitor();
             _ingredients.Text = "changed ingredients";
@@ -86,11 +86,11 @@ public class Recipe_page_specs
         }
 
         [Fact]
-        public void changes_are_completed_raises_property_changed_for_ingredients_text()
+        public void raises_property_changed_for_ingredients_text_if_changes_are_confirmed()
         {
             using var monitoredSubject = _ingredients.Monitor();
             _ingredients.Text = "changed ingredients";
-            _ingredients.Complete();
+            _ingredients.Confirm();
 
             monitoredSubject.Should().RaisePropertyChangeFor(x => x.Text);
         }
