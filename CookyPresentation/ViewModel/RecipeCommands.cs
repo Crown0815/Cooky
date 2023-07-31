@@ -6,18 +6,18 @@ namespace CookyPresentation.ViewModel;
 
 public static class RecipeCommands
 {
-    public static ICommand SaveCommand { get; } = new AsyncRelayCommand<IDocument>(Save!);
-    public static ICommand DeleteCommand { get; } = new AsyncRelayCommand<IDocument>(Delete!);
+    public static ICommand SaveCommand { get; } = new AsyncRelayCommand<IEditor>(Save!);
+    public static ICommand DeleteCommand { get; } = new AsyncRelayCommand<IEditor>(Delete!);
 
-    private static async Task Save(IDocument document)
+    private static async Task Save(IEditor editor)
     {
-        await document.Save();
+        await editor.Save();
         await GoBack();
     }
 
-    private static Task Delete(IDocument document)
+    private static Task Delete(IEditor editor)
     {
-        document.Delete();
+        editor.Delete();
         return GoBack();
     }
 }

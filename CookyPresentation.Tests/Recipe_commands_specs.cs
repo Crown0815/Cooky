@@ -8,7 +8,7 @@ namespace CookyPresentation.Tests;
 [Collection(nameof(Recipe_commands_specs))]
 public class Recipe_commands_specs
 {
-    private readonly Mock<IDocument> _recipeSpy = new();
+    private readonly Mock<IEditor> _recipeSpy = new();
 
     [Fact]
     public void The_save_command_when_executed_calls_save_on_given_recipe()
@@ -39,14 +39,14 @@ public class Recipe_commands_specs
         [Fact]
         public void save_command()
         {
-            RecipeCommands.SaveCommand.Execute(Mock.Of<IDocument>());
+            RecipeCommands.SaveCommand.Execute(Mock.Of<IEditor>());
             Verify();
         }
 
         [Fact]
         public void delete_command()
         {
-            RecipeCommands.DeleteCommand.Execute(Mock.Of<IDocument>());
+            RecipeCommands.DeleteCommand.Execute(Mock.Of<IEditor>());
             Verify();
         }
     }

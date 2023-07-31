@@ -1,6 +1,6 @@
 namespace CookyPresentation.ViewModel;
 
-public interface IDocument
+public interface IEditor
 {
     Task Save();
     void Delete();
