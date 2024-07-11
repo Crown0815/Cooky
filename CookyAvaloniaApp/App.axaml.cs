@@ -7,7 +7,7 @@ using CookyAvaloniaApp.Views;
 
 namespace CookyAvaloniaApp;
 
-public partial class App : Application
+public class App : Application
 {
     public override void Initialize()
     {
