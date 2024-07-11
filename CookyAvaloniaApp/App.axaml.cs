@@ -2,8 +2,8 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using CookyAvaloniaApp.ViewModels;
 using CookyAvaloniaApp.Views;
+using CookyPresentation.ViewModel;
 
 namespace CookyAvaloniaApp;
 
@@ -23,7 +23,7 @@ public class App : Application
             BindingPlugins.DataValidators.RemoveAt(0);
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new MainViewModel(),
             };
         }
 
