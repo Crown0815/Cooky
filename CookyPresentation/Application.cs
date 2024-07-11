@@ -1,3 +1,5 @@
+using CookyPresentation.ViewModel;
+
 namespace CookyPresentation;
 
 public static class Application
@@ -9,4 +11,6 @@ public static class Application
     public static string AppDataDirectory => _app.AppDataDirectory;
 
     public static void Initialize(IAppWrapper app) => _app = app;
+
+    public static Task Open(RecipeEditor? recipe) => _app.Open(recipe);
 }
