@@ -10,6 +10,12 @@ public class A_recipe
     private static readonly RecipeEditor Recipe = RecipeEditor.New();
 
     [Fact]
+    public void by_default_has_the_title_new_recipe()
+    {
+        Recipe.Title.Should().Be("New Recipe");
+    }
+
+    [Fact]
     public void when_its_title_is_changed_has_the_given_title()
     {
         Recipe.Title = GivenTitle;

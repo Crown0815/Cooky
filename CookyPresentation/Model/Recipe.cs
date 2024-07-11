@@ -9,7 +9,7 @@ public class Recipe(string id, DateTime date, string ingredients)
     public string Id { get; } = id;
     public DateTime Date { get; } = date;
 
-    public string Title { get; set; } = "";
+    public string Title { get; set; } = "New Recipe";
     public string Instructions { get; set; } = "";
 
     public string Ingredients => string.Join(Environment.NewLine, IngredientsList.Select(x => x.Name));
