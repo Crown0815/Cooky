@@ -2,20 +2,12 @@ using CookyPresentation.ViewModel;
 
 namespace CookyPresentation.Model;
 
-internal class Recipe
+internal class Recipe(string id, DateTime date, string ingredients)
 {
-    public Recipe(string id, DateTime date, string ingredients)
-    {
-        Id = id;
-        Date = date;
-        _ingredients = ingredients;
-    }
-
-    private string _ingredients;
     private const char IngredientPreparationSeparator = ',';
 
-    public string Id { get; }
-    public DateTime Date { get; }
+    public string Id { get; } = id;
+    public DateTime Date { get; } = date;
 
     public string Title { get; set; } = "";
     public string Instructions { get; set; } = "";
@@ -24,10 +16,10 @@ internal class Recipe
 
     public void SetIngredients(string value)
     {
-        _ingredients = value;
+        ingredients = value;
     }
 
-    public IReadOnlyCollection<Ingredient> IngredientsList => LinesFrom(_ingredients).Select(AsIngredient).ToList();
+    public IReadOnlyCollection<Ingredient> IngredientsList => LinesFrom(ingredients).Select(AsIngredient).ToList();
 
     private static Ingredient AsIngredient(string line)
     {
