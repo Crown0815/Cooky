@@ -1,7 +1,6 @@
-using CommunityToolkit.Mvvm.ComponentModel;
 using CookyPresentation.Model;
 
-namespace CookyPresentation.ViewModel;
+namespace CookyPresentation.ViewModels;
 
 
 public record Ingredient(string Name, string Preparation, string Quantity = "");

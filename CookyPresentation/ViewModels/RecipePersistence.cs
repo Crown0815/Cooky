@@ -3,7 +3,7 @@ using CookyPresentation.Model;
 using static System.Environment;
 using static System.StringSplitOptions;
 
-namespace CookyPresentation.ViewModel;
+namespace CookyPresentation.ViewModels;
 
 internal static class RecipePersistence
 {

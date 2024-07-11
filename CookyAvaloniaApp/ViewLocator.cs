@@ -1,29 +1,21 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using CookyPresentation.ViewModel;
+using CookyAvaloniaApp.Views;
+using CookyPresentation.ViewModels;
 
 namespace CookyAvaloniaApp;
 
 public class ViewLocator : IDataTemplate
 {
-    public Control? Build(object? data)
+    public Control? Build(object? data) => data switch
     {
-        if (data is null)
-            return null;
+        null => null,
+        RecipeItem => Create<RecipeItemView>(data),
+        RecipesOverview => Create<RecipesOverviewView>(data),
+        _ => new TextBlock { Text = "Not Found: " + data.GetType() }
+    };
 
-        var name = data.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
-        var type = Type.GetType(name);
-
-        if (type != null)
-        {
-            var control = (Control)Activator.CreateInstance(type)!;
-            control.DataContext = data;
-            return control;
-        }
-
-        return new TextBlock { Text = "Not Found: " + name };
-    }
+    private static Control Create<T>(object data) where T : Control, new() => new T { DataContext = data };
 
     public bool Match(object? data) => data is ViewModelBase;
 }

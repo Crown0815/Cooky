@@ -2,7 +2,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using static CookyPresentation.Application;
 
-namespace CookyPresentation.ViewModel;
+namespace CookyPresentation.ViewModels;
 
 public static class RecipeCommands
 {

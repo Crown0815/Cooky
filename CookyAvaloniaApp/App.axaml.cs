@@ -3,7 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using CookyAvaloniaApp.Views;
-using CookyPresentation.ViewModel;
+using MainWindow = CookyPresentation.ViewModels.MainWindow;
 
 namespace CookyAvaloniaApp;
 
@@ -21,9 +21,9 @@ public class App : Application
             // Line below is needed to remove Avalonia data validation.
             // Without this line you will get duplicate validations from both Avalonia and CT
             BindingPlugins.DataValidators.RemoveAt(0);
-            desktop.MainWindow = new MainWindow
+            desktop.MainWindow = new Views.MainWindowView
             {
-                DataContext = new MainViewModel(),
+                DataContext = new MainWindow(),
             };
         }
 

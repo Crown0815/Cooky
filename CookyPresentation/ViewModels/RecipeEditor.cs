@@ -1,7 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CookyPresentation.Model;
+﻿using CookyPresentation.Model;
 
-namespace CookyPresentation.ViewModel;
+namespace CookyPresentation.ViewModels;
 
 public class RecipeEditor : ViewModelBase, IEditor
 {

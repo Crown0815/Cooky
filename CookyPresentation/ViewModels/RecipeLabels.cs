@@ -1,4 +1,4 @@
-namespace CookyPresentation.ViewModel;
+namespace CookyPresentation.ViewModels;
 
 public class RecipeLabels
 {

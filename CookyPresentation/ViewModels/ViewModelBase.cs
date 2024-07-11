@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CookyPresentation.ViewModel;
+namespace CookyPresentation.ViewModels;
 
 public class ViewModelBase : ObservableObject
 {

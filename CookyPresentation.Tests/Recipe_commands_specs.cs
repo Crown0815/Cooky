@@ -1,4 +1,4 @@
-using CookyPresentation.ViewModel;
+using CookyPresentation.ViewModels;
 using Moq;
 using Xunit;
 using static Moq.Times;

@@ -1,8 +1,8 @@
-using CookyPresentation.ViewModel;
+using CookyPresentation.ViewModels;
 
 namespace CookyPresentation.Model;
 
-internal class Recipe(string id, DateTime date, string ingredients)
+public class Recipe(string id, DateTime date, string ingredients)
 {
     private const char IngredientPreparationSeparator = ',';
 

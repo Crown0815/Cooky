@@ -1,4 +1,4 @@
-using CookyPresentation.ViewModel;
+using CookyPresentation.ViewModels;
 using FluentAssertions;
 using Xunit;
 using static CookyPresentation.Tests.Example;
