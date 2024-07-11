@@ -6,7 +6,7 @@ namespace CookyPresentation.ViewModel;
 
 public record Ingredient(string Name, string Preparation, string Quantity = "");
 
-public class IngredientsEditor : ObservableObject
+public class IngredientsEditor : ViewModelBase
 {
     private readonly Recipe _recipe;
 

@@ -3,7 +3,7 @@ using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModel;
 
-public class RecipeEditor : ObservableObject, IEditor
+public class RecipeEditor : ViewModelBase, IEditor
 {
     private readonly Recipe _recipe;
 

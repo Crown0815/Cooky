@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CookyPresentation.ViewModel;
 
-public class AvailableRecipes
+public class AvailableRecipes : ViewModelBase
 {
     public AvailableRecipes()
     {
