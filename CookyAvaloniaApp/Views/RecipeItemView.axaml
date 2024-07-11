@@ -4,14 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:CookyPresentation.ViewModels;assembly=CookyPresentation"
              xmlns:designPreviews="clr-namespace:CookyAvaloniaApp.DesignPreviews"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="50"
              x:Class="CookyAvaloniaApp.Views.RecipeItemView"
              x:DataType="viewModels:RecipeItem">
     <Design.DataContext>
         <designPreviews:RecipeItemPreview/>
     </Design.DataContext>
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="{Binding Title}"/>
-        <TextBlock Text="{Binding Created}"/>
-    </StackPanel>
+    <Grid ColumnDefinitions="*, Auto">
+        <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Title}"/>
+            <TextBlock Text="{Binding Created}"/>
+        </StackPanel>
+        <Button Content="{Binding OpenLabel}" 
+                Command="{Binding OpenCommand}" 
+                CommandParameter="{Binding}" 
+                Grid.Column="1" Margin="10"/>
+    </Grid>
 </UserControl>

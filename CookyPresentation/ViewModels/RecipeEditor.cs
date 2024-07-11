@@ -6,7 +6,7 @@ public class RecipeEditor : ViewModelBase, IEditor
 {
     private readonly Recipe _recipe;
 
-    private RecipeEditor(Recipe recipe)
+    public RecipeEditor(Recipe recipe)
     {
         _recipe = recipe;
         Ingredients = new IngredientsEditor(_recipe);

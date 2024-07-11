@@ -14,7 +14,6 @@ public class RecipesOverview : ViewModelBase
     public ObservableCollection<RecipeItem> Recipes { get; } = new();
     public string NewRecipeLabel => "Add New Recipe";
     public ICommand NewRecipeCommand { get; }
-    public ICommand OpenCommand { get; } = new AsyncRelayCommand<RecipeEditor>(Open);
 
     private Task CreateNewRecipe()
     {
@@ -22,6 +21,4 @@ public class RecipesOverview : ViewModelBase
         Recipes.Add(new RecipeItem(recipe));
         return Task.CompletedTask;
     }
-
-    private static Task Open(RecipeEditor? recipe) => Application.Open(recipe);
 }
