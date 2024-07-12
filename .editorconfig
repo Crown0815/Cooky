@@ -31,6 +31,8 @@ dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
 
+resharper_trailing_comma_in_multiline_lists = true
+
 [*.spec.cs]
 # Naming Styles for Test Fixtures and Cases
 dotnet_naming_rule.spec_rule.symbols = spec_symbols
