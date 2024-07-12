@@ -12,11 +12,11 @@ public class RecipeItem(Recipe recipe) : ViewModelBase
     
     public ICommand OpenCommand { get; } = new AsyncRelayCommand<RecipeItem>(Open);
 
-    private static Task Open(RecipeItem? arg)
+    private static Task Open(RecipeItem? item)
     {
-        if (arg is not null)
-            Application.Open(new RecipeEditor(arg._recipe));
-        return Task.CompletedTask;
+        return item is not null 
+            ? Application.Open(new RecipeEditor(item._recipe)) 
+            : Task.CompletedTask;
     }
 
     public string OpenLabel => "Open";
