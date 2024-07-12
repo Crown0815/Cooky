@@ -6,9 +6,9 @@ public class RecipesOverviewPreview : RecipesOverview
 {
     public RecipesOverviewPreview()
     {
-        Recipes.Add(new RecipeItemPreview());
-        Recipes.Add(new RecipeItemPreview());
-        Recipes.Add(new RecipeItemPreview());
-        Recipes.Add(new RecipeItemPreview());
+        Recipes.Add(new RecipeItemPreview(this));
+        Recipes.Add(new RecipeItemPreview(this));
+        Recipes.Add(new RecipeItemPreview(this));
+        Recipes.Add(new RecipeItemPreview(this));
     }
 }

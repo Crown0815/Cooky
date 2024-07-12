@@ -4,7 +4,7 @@ using CookyPresentation.ViewModels;
 
 namespace CookyAvaloniaApp.DesignPreviews;
 
-public class RecipeItemPreview() : RecipeItem(PreviewRecipe)
+public class RecipeItemPreview(RecipesOverview overview = null!) : RecipeItem(PreviewRecipe, overview)
 {
     private static readonly Recipe PreviewRecipe = new(Guid.NewGuid().ToString(), DateTime.Now, "")
     {
