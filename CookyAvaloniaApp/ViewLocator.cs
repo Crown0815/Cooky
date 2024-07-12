@@ -12,6 +12,8 @@ public class ViewLocator : IDataTemplate
         null => null,
         RecipeItem => Create<RecipeItemView>(data),
         RecipesOverview => Create<RecipesOverviewView>(data),
+        RecipeEditor=> Create<RecipesEditorView>(data),
+        IngredientsEditor=> Create<IngredientsEditorView>(data),
         _ => new TextBlock { Text = "Not Found: " + data.GetType() }
     };
 

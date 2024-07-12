@@ -9,7 +9,7 @@ public class IngredientsEditor : ViewModelBase
 {
     private readonly Recipe _recipe;
 
-    internal IngredientsEditor(Recipe recipe)
+    protected internal IngredientsEditor(Recipe recipe)
     {
         _recipe = recipe;
     }
