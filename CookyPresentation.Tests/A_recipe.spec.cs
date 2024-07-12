@@ -18,7 +18,8 @@ public class An_open_recipe
     [Fact]
     public void by_default_has_no_ingredients()
     {
-        _recipe.Ingredients.List.Should().BeEmpty();
+        _recipe.Ingredients.Text.Should().BeEmpty();
+        _recipe.Ingredients.List.Should().BeNull();
     }
 
     [Fact]
@@ -52,8 +53,7 @@ public class An_open_recipe
         {
             _ingredients.Text = text;
 
-            _ingredients.List.Select(x => x.Name).Should().BeEquivalentTo(
-                "Carrot", "Meat");
+            _ingredients.List!.Select(x => x.Name).Should().Equal("Carrot", "Meat");
         }
 
         [Theory]
@@ -64,8 +64,7 @@ public class An_open_recipe
         {
             _ingredients.Text = text;
 
-            _ingredients.List.Select(x => x.Preparation)
-                .Should().BeEquivalentTo("chopped", "cut into 1 inch dice");
+            _ingredients.List!.Select(x => x.Preparation).Should().Equal("chopped", "cut into 1 inch dice");
         }
 
         [Theory]
@@ -75,8 +74,7 @@ public class An_open_recipe
         {
             _ingredients.Text = text;
 
-            _ingredients.List.Select(x => x.Quantity)
-                .Should().BeEquivalentTo("5", "500g");
+            _ingredients.List!.Select(x => x.Quantity).Should().Equal("5", "500g");
         }
 
         [Theory]

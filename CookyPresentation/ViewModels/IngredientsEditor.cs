@@ -2,9 +2,6 @@ using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModels;
 
-
-public record Ingredient(string Name, string Preparation, string Quantity = "");
-
 public class IngredientsEditor : ViewModelBase
 {
     private readonly Recipe _recipe;
@@ -24,12 +21,9 @@ public class IngredientsEditor : ViewModelBase
         }
     }
 
-    public IReadOnlyCollection<Ingredient> List => _recipe.IngredientsList;
+    public IReadOnlyCollection<Ingredient>? List => _recipe.IngredientsList.Count != 0 ? _recipe.IngredientsList : null;
 
-    public void Confirm()
-    {
-        OnPropertyChanged(nameof(Text));
-    }
+    public void Confirm() => OnPropertyChanged(nameof(Text));
 }
 
 internal static class IngredientParsingExtensions
