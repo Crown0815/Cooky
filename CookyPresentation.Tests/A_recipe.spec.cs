@@ -36,7 +36,7 @@ public class A_recipe
         Recipe.Instructions.Should().Be(Instructions);
     }
 
-    public class when_its_ingredients_are_changed
+    public class When_its_ingredients_are_changed
     {
         private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
 

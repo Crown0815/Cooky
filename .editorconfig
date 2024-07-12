@@ -6,6 +6,7 @@ trim_trailing_whitespace = false
 insert_final_newline = false
 indent_style = space
 indent_size = 4
+max_line_length = 120
 
 # Microsoft .NET properties
 csharp_new_line_before_members_in_object_initializers = false
@@ -18,7 +19,7 @@ dotnet_naming_rule.unity_serialized_field_rule.style = lower_camel_case_style
 dotnet_naming_rule.unity_serialized_field_rule.symbols = unity_serialized_field_symbols
 dotnet_naming_style.lower_camel_case_style.capitalization = camel_case
 dotnet_naming_symbols.unity_serialized_field_symbols.applicable_accessibilities = *
-dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds = 
+dotnet_naming_symbols.unity_serialized_field_symbols.applicable_kinds =
 dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:none
 dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:none
 dotnet_style_parentheses_in_relational_binary_operators = never_if_unnecessary:none
@@ -30,8 +31,22 @@ dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
 
+[*.spec.cs]
+# Naming Styles for Test Fixtures and Cases
+dotnet_naming_rule.spec_rule.symbols = spec_symbols
+dotnet_naming_rule.spec_rule.style = spec_style
+dotnet_naming_rule.spec_rule.severity = warning
+dotnet_naming_rule.spec_rule_rule.symbols = spec_rule_symbols
+dotnet_naming_rule.spec_rule_rule.style = spec_rule_style
+dotnet_naming_rule.spec_rule_rule.severity = warning
+dotnet_naming_symbols.spec_symbols.applicable_accessibilities = local,public
+dotnet_naming_symbols.spec_symbols.applicable_kinds = class
+dotnet_naming_symbols.spec_rule_symbols.applicable_accessibilities = local,public
+dotnet_naming_symbols.spec_rule_symbols.applicable_kinds = method
+dotnet_naming_style.spec_style.capitalization = first_word_upper
+dotnet_naming_style.spec_style.word_separator = _
+dotnet_naming_style.spec_rule_style.capitalization = all_lower
+dotnet_naming_style.spec_rule_style.word_separator = _
+
 [{*.har,*.inputactions,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,jest.config}]
 indent_size = 2
-
-[*.{appxmanifest,asax,ascx,aspx,axaml,build,c,c++,cc,cginc,compute,cp,cpp,cs,cshtml,cu,cuh,cxx,dtd,fs,fsi,fsscript,fsx,fx,fxh,h,hh,hlsl,hlsli,hlslinc,hpp,hxx,inc,inl,ino,ipp,ixx,master,ml,mli,mpp,mq4,mq5,mqh,nuspec,paml,razor,resw,resx,shader,skin,tpp,usf,ush,vb,xaml,xamlx,xoml,xsd}]
-tab_width = 4
