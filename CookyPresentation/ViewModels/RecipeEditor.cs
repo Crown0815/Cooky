@@ -48,6 +48,5 @@ public class RecipeEditor : ViewModelBase, IEditor
     {
         await RecipePersistence.Delete(_recipe);
         await _inner.Delete();
-        await Application.GoBack();
     }
 }

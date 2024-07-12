@@ -17,7 +17,7 @@ public class RecipesOverview(IAppWrapper app) : ViewModelBase, ICreator
     public Task DeleteItem(RecipeItem item)
     {
         Recipes.Remove(item);
-        return Task.CompletedTask;
+        return app.GoBack();
     }
 
     public Task SaveItem(RecipeItem recipeItem)
