@@ -6,7 +6,7 @@ namespace CookyPresentation.Tests;
 
 public class A_recipe_when_saved
 {
-    private readonly RecipeEditor _recipe = new MainWindow().OpenNewRecipe();
+    private readonly RecipeEditor _recipe = new MainWindow().OpenNewRecipe().Await();
 
     private static RecipeEditor SavedAndLoaded(RecipeEditor recipe)
     {

@@ -5,9 +5,9 @@ using static CookyPresentation.Tests.Example;
 
 namespace CookyPresentation.Tests;
 
-public class A_recipe
+public class An_open_recipe
 {
-    private readonly RecipeEditor _recipe = new MainWindow().OpenNewRecipe();
+    private readonly RecipeEditor _recipe = new MainWindow().OpenNewRecipe().Await();
 
     [Fact]
     public void by_default_has_the_title_new_recipe()
@@ -38,7 +38,7 @@ public class A_recipe
 
     public class When_its_ingredients_are_changed
     {
-        private readonly IngredientsEditor _ingredients = new A_recipe()._recipe.Ingredients;
+        private readonly IngredientsEditor _ingredients = new An_open_recipe()._recipe.Ingredients;
 
         [Theory]
         [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]
