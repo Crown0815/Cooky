@@ -44,5 +44,9 @@ public class RecipeEditor : ViewModelBase, IEditor
 
     public Task Save() => RecipePersistence.Save(_recipe);
 
-    public Task Delete() => RecipePersistence.Delete(_recipe);
+    public async Task Delete()
+    {
+        await RecipePersistence.Delete(_recipe);
+        await Application.GoBack();
+    }
 }

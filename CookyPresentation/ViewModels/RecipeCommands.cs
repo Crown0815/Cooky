@@ -21,7 +21,6 @@ public static class RecipeCommands
     private static async Task Delete(IEditor editor)
     {
         await editor.Delete();
-        await GoBack();
     }
 
     private static Task Open(IOpen open)
