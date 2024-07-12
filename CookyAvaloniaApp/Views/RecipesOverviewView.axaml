@@ -11,7 +11,13 @@
         <designPreviews:RecipesOverviewPreview/>
     </Design.DataContext>
     <StackPanel>
-        <Button Command="{Binding NewRecipeCommand}" Content="{Binding NewRecipeLabel}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-        <ListBox ItemsSource="{Binding Recipes}"/>
+        <Button 
+            Command="{x:Static viewModels:RecipeCommands.CreateItemCommand}" 
+            CommandParameter="{Binding}" 
+            Content="{Binding NewRecipeLabel}" 
+            HorizontalAlignment="Stretch" 
+            HorizontalContentAlignment="Center"/>
+        <ListBox 
+            ItemsSource="{Binding Recipes}"/>
     </StackPanel>
 </UserControl>

@@ -1,21 +1,13 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
 
 namespace CookyPresentation.ViewModels;
 
-public class RecipesOverview : ViewModelBase
+public class RecipesOverview : ViewModelBase, ICreator
 {
-    public RecipesOverview()
-    {
-        NewRecipeCommand = new AsyncRelayCommand(CreateNewRecipe);
-    }
-
     public ObservableCollection<RecipeItem> Recipes { get; } = new();
     public string NewRecipeLabel => "Add New Recipe";
-    public ICommand NewRecipeCommand { get; }
 
-    private Task CreateNewRecipe()
+    public Task CreateItem()
     {
         var recipe = RecipePersistence.New();
         Recipes.Add(new RecipeItem(recipe));

@@ -1,23 +1,13 @@
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
 using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModels;
 
-public class RecipeItem(Recipe recipe) : ViewModelBase
+public class RecipeItem(Recipe recipe) : ViewModelBase, IOpen
 {
-    private readonly Recipe _recipe = recipe;
-    public string Title => _recipe.Title;
-    public DateTime Created => _recipe.Date;
-    
-    public ICommand OpenCommand { get; } = new AsyncRelayCommand<RecipeItem>(Open);
+    public string Title => recipe.Title;
+    public DateTime Created => recipe.Date;
 
-    private static Task Open(RecipeItem? item)
-    {
-        return item is not null 
-            ? Application.Open(new RecipeEditor(item._recipe)) 
-            : Task.CompletedTask;
-    }
+    public Task Open() => Application.Open(new RecipeEditor(recipe));
 
     public string OpenLabel => "Open";
 }

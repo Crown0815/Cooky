@@ -2,7 +2,4 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CookyPresentation.ViewModels;
 
-public class ViewModelBase : ObservableObject
-{
-    
-}
+public class ViewModelBase : ObservableObject;

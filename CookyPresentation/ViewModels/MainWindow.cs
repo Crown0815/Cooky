@@ -4,27 +4,27 @@ namespace CookyPresentation.ViewModels;
 
 public partial class MainWindow : ViewModelBase, IAppWrapper
 {
+    private readonly RecipesOverview _recipesOverview = new();
+    [ObservableProperty] 
+    private ViewModelBase? _currentViewModel;
     public MainWindow()
     {
+        CurrentViewModel = _recipesOverview;
         Application.Initialize(this);
     }
     
-    private static readonly RecipesOverview RecipesOverview = new();
+    public string AppDataDirectory => "";
     public string Greeting => "Welcome to Avalonia!";
-    
-    [ObservableProperty]
-    private ViewModelBase? _currentViewModel = RecipesOverview;
+
+    public Task Open(RecipeEditor? recipe)
+    {
+        CurrentViewModel = recipe;
+        return Task.CompletedTask;
+    }
     
     public Task GoBack()
     {
-        _currentViewModel = RecipesOverview;
-        return Task.CompletedTask;
-    }
-
-    public string AppDataDirectory => "";
-    public Task Open(RecipeEditor? recipe)
-    {
-        _currentViewModel = recipe;
+        CurrentViewModel = _recipesOverview;
         return Task.CompletedTask;
     }
 }

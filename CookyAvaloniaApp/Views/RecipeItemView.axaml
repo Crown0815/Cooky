@@ -16,7 +16,7 @@
             <TextBlock Text="{Binding Created}"/>
         </StackPanel>
         <Button Content="{Binding OpenLabel}" 
-                Command="{Binding OpenCommand}" 
+                Command="{x:Static viewModels:RecipeCommands.OpenCommand}" 
                 CommandParameter="{Binding}" 
                 Grid.Column="1" Margin="10"/>
     </Grid>
