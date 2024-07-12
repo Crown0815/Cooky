@@ -43,4 +43,19 @@ public class A_main_window
         _subject.CurrentViewModel.Should().BeAssignableTo<RecipesOverview>();
         monitor.Should().RaisePropertyChangeFor(x => x.CurrentViewModel);
     }
+
+    [Fact]
+    public async Task when_an_open_recipe_is_deleted_then_that_recipe_is_no_longer_visible_in_the_recipe_overview()
+    {
+        using var monitor = _subject.Monitor();
+        
+        var overview = (RecipesOverview)_subject.CurrentViewModel!;
+        await overview.CreateItem();
+        var recipe = overview.Recipes.Single();
+        await recipe.Open();
+        var editor = (RecipeEditor)_subject.CurrentViewModel!;
+        await editor.Delete();
+
+        overview.Recipes.Should().NotContain(recipe);
+    }
 }

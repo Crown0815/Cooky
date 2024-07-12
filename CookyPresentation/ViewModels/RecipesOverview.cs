@@ -10,7 +10,18 @@ public class RecipesOverview : ViewModelBase, ICreator
     public Task CreateItem()
     {
         var recipe = RecipePersistence.New();
-        Recipes.Add(new RecipeItem(recipe));
+        Recipes.Add(new RecipeItem(recipe, this));
         return Task.CompletedTask;
+    }
+    
+    public Task DeleteItem(RecipeItem item)
+    {
+        Recipes.Remove(item);
+        return Task.CompletedTask;
+    }
+
+    public Task SaveItem(RecipeItem recipeItem)
+    {
+        throw new NotImplementedException();
     }
 }
