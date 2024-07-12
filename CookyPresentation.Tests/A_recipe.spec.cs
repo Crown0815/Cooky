@@ -7,38 +7,47 @@ namespace CookyPresentation.Tests;
 
 public class A_recipe
 {
-    private static readonly RecipeEditor Recipe = RecipeEditor.New();
+    private readonly RecipeEditor _recipe;
+
+    public A_recipe()
+    {
+        var main = new MainWindow();
+        var overview = (RecipesOverview)main.CurrentViewModel!;
+        overview.CreateItem().Await();
+        overview.Recipes.Single().Open().Await();
+        _recipe = (RecipeEditor)main.CurrentViewModel!;
+    }
 
     [Fact]
     public void by_default_has_the_title_new_recipe()
     {
-        Recipe.Title.Should().Be("New Recipe");
+        _recipe.Title.Should().Be("New Recipe");
     }
 
     [Fact]
     public void when_its_title_is_changed_has_the_given_title()
     {
-        Recipe.Title = GivenTitle;
-        Recipe.Title.Should().Be(GivenTitle);
+        _recipe.Title = GivenTitle;
+        _recipe.Title.Should().Be(GivenTitle);
     }
 
     [Fact]
     public void when_its_instructions_are_changed_has_the_given_instructions()
     {
-        Recipe.Instructions = Instructions;
-        Recipe.Instructions.Should().Be(Instructions);
+        _recipe.Instructions = Instructions;
+        _recipe.Instructions.Should().Be(Instructions);
     }
 
     [Fact]
     public void when_its_instructions_are_changed_trims_trailing_blank_lines()
     {
-        Recipe.Instructions = GivenTextWithSurroundingBlankLines;
-        Recipe.Instructions.Should().Be(Instructions);
+        _recipe.Instructions = GivenTextWithSurroundingBlankLines;
+        _recipe.Instructions.Should().Be(Instructions);
     }
 
     public class When_its_ingredients_are_changed
     {
-        private readonly IngredientsEditor _ingredients = Recipe.Ingredients;
+        private readonly IngredientsEditor _ingredients = new A_recipe()._recipe.Ingredients;
 
         [Theory]
         [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]

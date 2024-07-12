@@ -14,11 +14,6 @@ public class RecipeEditor : ViewModelBase, IEditor
         Ingredients = new IngredientsEditor(_recipe);
     }
 
-    public static RecipeEditor New()
-    {
-        return new RecipeEditor(RecipePersistence.New(), null);
-    }
-
     public static RecipeEditor Load(string id)
     {
         return new RecipeEditor(RecipePersistence.Load(id), null);
