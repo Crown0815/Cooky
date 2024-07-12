@@ -8,7 +8,7 @@ public class RecipeItemPreview(RecipesOverview overview) : RecipeItem(PreviewRec
 {
     public RecipeItemPreview() : this(new RecipesOverviewPreview()) { }
     
-    public static Recipe PreviewRecipe => new(Guid.NewGuid().ToString(), DateTime.Now, "")
+    public static Recipe PreviewRecipe => new(Guid.NewGuid().ToString(), DateTime.Now)
     {
         Title = $"Title_{Guid.NewGuid()}",
         Instructions = """

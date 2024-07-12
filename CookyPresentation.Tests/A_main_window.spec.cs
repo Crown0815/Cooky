@@ -23,7 +23,7 @@ public class A_main_window
         await overview.CreateItem();
         var recipe = overview.Recipes.Single();
         await recipe.Open();
-        
+
         _subject.CurrentViewModel.Should().BeAssignableTo<RecipeEditor>();
         monitor.Should().RaisePropertyChangeFor(x => x.CurrentViewModel);
     }

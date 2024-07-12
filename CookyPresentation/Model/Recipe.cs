@@ -2,7 +2,7 @@ using CookyPresentation.ViewModels;
 
 namespace CookyPresentation.Model;
 
-public class Recipe(string id, DateTime date, string ingredients)
+public class Recipe(string id, DateTime date)
 {
     private const char IngredientPreparationSeparator = ',';
 
@@ -16,10 +16,10 @@ public class Recipe(string id, DateTime date, string ingredients)
 
     public void SetIngredients(string value)
     {
-        ingredients = value;
+        IngredientsList = LinesFrom(value).Select(AsIngredient).ToList();
     }
 
-    public IReadOnlyCollection<Ingredient> IngredientsList => LinesFrom(ingredients).Select(AsIngredient).ToList();
+    public IReadOnlyCollection<Ingredient> IngredientsList { get; private set; } = [];
 
     private static Ingredient AsIngredient(string line)
     {

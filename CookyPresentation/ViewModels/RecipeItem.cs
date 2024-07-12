@@ -7,7 +7,7 @@ public class RecipeItem(Recipe recipe, RecipesOverview overview) : ViewModelBase
     public string Title => recipe.Title;
     public DateTime Created => recipe.Date;
 
-    public Task Open() => Application.Open(new RecipeEditor(recipe, this));
+    public Task Open() => overview.Open(new RecipeEditor(recipe, this));
 
     public string OpenLabel => "Open";
     public string DeleteLabel => "Delete";

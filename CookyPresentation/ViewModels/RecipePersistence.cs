@@ -16,11 +16,13 @@ internal static class RecipePersistence
         var date = File.GetCreationTime(fileName);
         var (title, ingredients, instructions) = Parse(File.ReadAllText(fileName));
 
-        return new Recipe(id, date, ingredients)
+        var recipe = new Recipe(id, date)
         {
             Instructions = instructions,
-            Title = title,
+            Title = title
         };
+        recipe.SetIngredients(ingredients);
+        return recipe;
     }
 
     private static (string, string, string) Parse(string raw)
@@ -64,7 +66,7 @@ internal static class RecipePersistence
 
     public static Recipe New()
     {
-        return new Recipe(Path.GetRandomFileName(), DateTime.Now, "");
+        return new Recipe(Path.GetRandomFileName(), DateTime.Now);
     }
 
     private static string FileNameFrom(string id) {
