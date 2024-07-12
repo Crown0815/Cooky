@@ -42,13 +42,13 @@ public class An_open_recipe
         _recipe.Instructions.Should().Be(Instructions);
     }
 
-    public class When_its_ingredients_are_changed
+    public class When_its_ingredients_are_set_to_a_new_line_separated_list_of
     {
         private readonly IngredientsEditor _ingredients = new An_open_recipe()._recipe.Ingredients;
 
         [Theory]
         [MemberData(nameof(IngredientNamesOnly), MemberType = typeof(Example))]
-        public void parses_ingredient_names_from(string text)
+        public void names_extracts_name_only_ingredients(string text)
         {
             _ingredients.Text = text;
 
@@ -60,7 +60,7 @@ public class An_open_recipe
         [InlineData(IngredientsWithPreparation)]
         [InlineData(IngredientsWithQuantityAndPreparation)]
         [InlineData(IngredientsWithPreparationAndTrailingWhitespaces)]
-        public void parses_ingredient_preparation_separated_by_comma(string text)
+        public void names_with_comma_separated_preparation_steps_extracts_preparation_steps(string text)
         {
             _ingredients.Text = text;
 
@@ -71,7 +71,7 @@ public class An_open_recipe
         [Theory]
         [InlineData(IngredientsWithQuantity)]
         [InlineData(IngredientsWithQuantityAndPreparation)]
-        public void parses_ingredient_state_separated_by_comma(string text)
+        public void quantities_and_names_extracts_ingredients_with_quantities(string text)
         {
             _ingredients.Text = text;
 
