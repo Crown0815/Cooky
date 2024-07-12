@@ -7,16 +7,7 @@ namespace CookyPresentation.Tests;
 
 public class A_recipe
 {
-    private readonly RecipeEditor _recipe;
-
-    public A_recipe()
-    {
-        var main = new MainWindow();
-        var overview = (RecipesOverview)main.CurrentViewModel!;
-        overview.CreateItem().Await();
-        overview.Recipes.Single().Open().Await();
-        _recipe = (RecipeEditor)main.CurrentViewModel!;
-    }
+    private readonly RecipeEditor _recipe = new MainWindow().OpenNewRecipe();
 
     [Fact]
     public void by_default_has_the_title_new_recipe()
