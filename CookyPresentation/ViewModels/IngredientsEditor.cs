@@ -19,7 +19,7 @@ public class IngredientsEditor : ViewModelBase
         get => _recipe.Ingredients;
         set
         {
-            _recipe.SetIngredients(value);
+            _recipe.Ingredients = value;
             OnPropertyChanged(nameof(List));
         }
     }

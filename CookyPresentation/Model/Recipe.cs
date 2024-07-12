@@ -11,15 +11,13 @@ public class Recipe(string id, DateTime date)
 
     public string Title { get; set; } = "New Recipe";
     public string Instructions { get; set; } = "";
-
-    public string Ingredients => string.Join(Environment.NewLine, IngredientsList.Select(x => x.Name));
-
-    public void SetIngredients(string value)
-    {
-        IngredientsList = LinesFrom(value).Select(AsIngredient).ToList();
-    }
-
     public IReadOnlyCollection<Ingredient> IngredientsList { get; private set; } = [];
+
+    public string Ingredients
+    {
+        get => string.Join(Environment.NewLine, IngredientsList.Select(x => x.Name));
+        set => IngredientsList = LinesFrom(value).Select(AsIngredient).ToList();
+    }
 
     private static Ingredient AsIngredient(string line)
     {
