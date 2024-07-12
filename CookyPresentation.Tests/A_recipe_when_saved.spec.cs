@@ -46,7 +46,7 @@ public class A_recipe_when_saved
     public async Task and_deleted_cannot_be_loaded()
     {
         await _recipe.Save();
-        _recipe.Delete();
+        await _recipe.Delete();
 
         FluentActions.Invoking(() => RecipeEditor.Load(_recipe.Filename))
             .Should().Throw<RecipeNotFoundException>()

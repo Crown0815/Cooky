@@ -18,10 +18,10 @@ public static class RecipeCommands
         await GoBack();
     }
 
-    private static Task Delete(IEditor editor)
+    private static async Task Delete(IEditor editor)
     {
-        editor.Delete();
-        return GoBack();
+        await editor.Delete();
+        await GoBack();
     }
 
     private static Task Open(IOpen open)

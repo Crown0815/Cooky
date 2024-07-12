@@ -54,11 +54,12 @@ internal static class RecipePersistence
     public static Task Save(Recipe recipe) =>
         File.WriteAllTextAsync(FileNameFrom(recipe.Id), Serialized(recipe));
 
-    public static void Delete(Recipe recipe)
+    public static Task Delete(Recipe recipe)
     {
         var fileName = FileNameFrom(recipe.Id);
         if (File.Exists(fileName))
             File.Delete(fileName);
+        return Task.CompletedTask;
     }
 
     public static Recipe New()
