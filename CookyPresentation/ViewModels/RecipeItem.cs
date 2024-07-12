@@ -10,7 +10,8 @@ public class RecipeItem(Recipe recipe, RecipesOverview overview) : ViewModelBase
     public Task Open() => Application.Open(new RecipeEditor(recipe, this));
 
     public string OpenLabel => "Open";
-    
+    public string DeleteLabel => "Delete";
+
     public Task Save() => overview.SaveItem(this);
 
     public Task Delete() => overview.DeleteItem(this);
