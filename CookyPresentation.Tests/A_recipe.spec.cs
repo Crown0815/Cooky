@@ -16,6 +16,12 @@ public class An_open_recipe
     }
 
     [Fact]
+    public void by_default_has_no_ingredients()
+    {
+        _recipe.Ingredients.List.Should().BeEmpty();
+    }
+
+    [Fact]
     public void when_its_title_is_changed_has_the_given_title()
     {
         _recipe.Title = GivenTitle;
