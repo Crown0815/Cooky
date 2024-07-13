@@ -10,4 +10,13 @@
     <Design.DataContext>
         <designPreviews:IngredientsEditorPreview/>
     </Design.DataContext>
+    <DockPanel>
+        <ContentControl 
+            DockPanel.Dock="Right"
+            Content="{Binding List}" 
+            Width="450"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"/>
+        <TextBox Text="{Binding Text}"/>
+    </DockPanel>
 </UserControl>

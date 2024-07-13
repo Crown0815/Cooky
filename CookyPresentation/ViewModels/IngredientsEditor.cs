@@ -21,7 +21,9 @@ public class IngredientsEditor : ViewModelBase
         }
     }
 
-    public IReadOnlyCollection<Ingredient>? List => _recipe.IngredientsList.Count != 0 ? _recipe.IngredientsList : null;
+    public IReadOnlyCollection<Ingredient> List => _recipe.IngredientsList.Count == 0 
+        ? new EmptyList<Ingredient>("No ingredients yet. Add some!") 
+        : _recipe.IngredientsList;
 
     public void Confirm() => OnPropertyChanged(nameof(Text));
 }

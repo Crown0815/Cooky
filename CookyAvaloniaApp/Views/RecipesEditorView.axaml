@@ -13,7 +13,7 @@
     <StackPanel>
         <SelectableTextBlock Text="{Binding Title}"/>
         <TextBlock Text="Ingredients"/>
-        <ContentControl Content="{Binding Ingredients}"/>
+        <ContentControl Content="{Binding Ingredients.List}" HorizontalAlignment="Left"/>
         <TextBlock Text="Instructions"/>
         <TextBox Text="{Binding Instructions}"/>
     </StackPanel>
