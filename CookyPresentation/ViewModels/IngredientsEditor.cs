@@ -2,7 +2,7 @@ using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModels;
 
-public class IngredientsEditor : ViewModelBase
+public class IngredientsEditor : ViewModelBase, IOpen
 {
     private readonly Recipe _recipe;
 
@@ -24,6 +24,15 @@ public class IngredientsEditor : ViewModelBase
     public IReadOnlyCollection<Ingredient> List => _recipe.IngredientsList.Count == 0 
         ? new EmptyList<Ingredient>("No ingredients yet. Add some!") 
         : _recipe.IngredientsList;
+
+    public string Watermark => 
+        """
+        Add ingredients here, one per line.
+        You can specify their
+        - quantity, e.g., "1 cup sugar",
+        - preparation, e.g., "1 cup sugar, sifted",
+        - brand, e.g., "1 cup sugar, sifted (Domino)",
+        """;
 
     public void Confirm() => OnPropertyChanged(nameof(Text));
 }
