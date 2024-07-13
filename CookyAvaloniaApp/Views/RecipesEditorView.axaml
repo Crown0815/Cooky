@@ -12,7 +12,14 @@
     </Design.DataContext>
     <StackPanel>
         <SelectableTextBlock Text="{Binding Title}"/>
-        <TextBlock Text="Ingredients"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Ingredients" VerticalAlignment="Center"/>
+            <Button 
+                Content="{Binding EditIngredientsLabel}" 
+                Command="{x:Static viewModels:RecipeCommands.OpenCommand}" 
+                CommandParameter="{Binding Ingredients}"
+                Margin="10,0"/>
+        </StackPanel>
         <ContentControl Content="{Binding Ingredients.List}" HorizontalAlignment="Left"/>
         <TextBlock Text="Instructions"/>
         <TextBox Text="{Binding Instructions}"/>

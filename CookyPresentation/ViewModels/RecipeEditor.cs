@@ -38,6 +38,7 @@ public class RecipeEditor : ViewModelBase, IEditor
     }
 
     public IngredientsEditor Ingredients { get; }
+    public string EditIngredientsLabel => "Edit";
 
     public Task Save()
     {
