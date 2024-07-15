@@ -1,22 +1,27 @@
 using System.Collections.ObjectModel;
+using CookyPresentation.Model;
 
 namespace CookyPresentation.ViewModels;
 
 public class RecipesOverview(IAppWrapper app) : ViewModelBase, ICreator
 {
-    public ObservableCollection<RecipeItem> Recipes { get; } = new();
+    private readonly Dictionary<Recipe, RecipeItem> _items = new();
+    public ObservableCollection<RecipeItem> Recipes { get; } = [];
     public string NewRecipeLabel => "Add New Recipe";
 
     public Task CreateItem()
     {
         var recipe = RecipePersistence.New();
-        Recipes.Add(new RecipeItem(recipe, this));
+        _items.Add(recipe, new RecipeItem(recipe, this));
+        Recipes.Add(_items[recipe]);
         return Task.CompletedTask;
     }
-    
-    public Task DeleteItem(RecipeItem item)
+
+    public Task Delete(Recipe recipe)
     {
+        var item = _items[recipe];
         Recipes.Remove(item);
+        _items.Remove(recipe);
         return app.GoBack();
     }
 
@@ -25,5 +30,6 @@ public class RecipesOverview(IAppWrapper app) : ViewModelBase, ICreator
         throw new NotImplementedException();
     }
 
-    public Task Open(RecipeEditor recipeEditor) => app.Open(recipeEditor);
+    public Task Open(Recipe recipe) => app.Open(new RecipeEditor(recipe, this));
+    public Task Open(ViewModelBase? viewModel) => app.Open(viewModel);
 }

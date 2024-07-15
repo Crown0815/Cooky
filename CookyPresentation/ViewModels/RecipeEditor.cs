@@ -5,13 +5,13 @@ namespace CookyPresentation.ViewModels;
 public class RecipeEditor : ViewModelBase, IEditor
 {
     private readonly Recipe _recipe;
-    private readonly IEditor _inner;
+    private readonly RecipesOverview _inner;
 
-    public RecipeEditor(Recipe recipe, IEditor inner)
+    public RecipeEditor(Recipe recipe, RecipesOverview inner)
     {
         _recipe = recipe;
         _inner = inner;
-        Ingredients = new IngredientsEditor(_recipe);
+        Ingredients = new IngredientsEditor(_recipe, inner);
     }
 
     public static RecipeEditor Load(string id)
@@ -48,6 +48,6 @@ public class RecipeEditor : ViewModelBase, IEditor
     public async Task Delete()
     {
         await RecipePersistence.Delete(_recipe);
-        await _inner.Delete();
+        await _inner.Delete(_recipe);
     }
 }

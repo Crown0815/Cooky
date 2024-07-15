@@ -5,10 +5,12 @@ namespace CookyPresentation.ViewModels;
 public class IngredientsEditor : ViewModelBase, IOpen
 {
     private readonly Recipe _recipe;
+    private readonly RecipesOverview _inner;
 
-    protected internal IngredientsEditor(Recipe recipe)
+    protected internal IngredientsEditor(Recipe recipe, RecipesOverview inner)
     {
         _recipe = recipe;
+        _inner = inner;
     }
 
     public string Text
@@ -35,6 +37,7 @@ public class IngredientsEditor : ViewModelBase, IOpen
         """;
 
     public void Confirm() => OnPropertyChanged(nameof(Text));
+    public Task Open() => _inner.Open(this);
 }
 
 internal static class IngredientParsingExtensions

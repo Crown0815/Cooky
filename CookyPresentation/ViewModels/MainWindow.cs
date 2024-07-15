@@ -7,6 +7,7 @@ public partial class MainWindow : ViewModelBase, IAppWrapper
     private readonly RecipesOverview _recipesOverview;
     [ObservableProperty] 
     private ViewModelBase? _currentViewModel;
+    
     public MainWindow()
     {
         _recipesOverview = new RecipesOverview(this);
@@ -17,9 +18,9 @@ public partial class MainWindow : ViewModelBase, IAppWrapper
     public string AppDataDirectory => "";
     public string Greeting => "Welcome to Avalonia!";
 
-    public Task Open(RecipeEditor? recipe)
+    public Task Open(ViewModelBase? viewModel)
     {
-        CurrentViewModel = recipe;
+        CurrentViewModel = viewModel;
         return Task.CompletedTask;
     }
     

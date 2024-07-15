@@ -6,5 +6,5 @@ public interface IAppWrapper
 {
     Task GoBack();
     string AppDataDirectory { get; }
-    Task Open(RecipeEditor? recipe);
+    Task Open(ViewModelBase? viewModel);
 }

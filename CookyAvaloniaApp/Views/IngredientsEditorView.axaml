@@ -17,6 +17,6 @@
             Width="450"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"/>
-        <TextBox Text="{Binding Text}" Watermark="{Binding Watermark}" UseFloatingWatermark="True"/>
+        <TextBox Text="{Binding Text}" Watermark="{Binding Watermark}"/>
     </DockPanel>
 </UserControl>
