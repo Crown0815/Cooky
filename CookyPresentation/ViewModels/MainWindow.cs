@@ -16,7 +16,6 @@ public partial class MainWindow : ViewModelBase, IAppWrapper
     }
     
     public string AppDataDirectory => "";
-    public string Greeting => "Welcome to Avalonia!";
 
     public Task Open(ViewModelBase? viewModel)
     {

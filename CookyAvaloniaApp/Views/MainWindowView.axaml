@@ -16,7 +16,6 @@
     </Design.DataContext>
     
     <StackPanel>
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </StackPanel>
 </Window>
